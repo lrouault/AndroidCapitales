@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lrt.capitales.Controller.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:text="What's your name?" />
+
+    <EditText
+        android:id="@+id/activity_main_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:inputType="text"
+        android:maxLines="1" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Continent:" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckedTextView
+            android:id="@+id/activity_main_afrique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorMultiple"
+            android:checked="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="Afrique" />
+
+        <CheckedTextView
+            android:id="@+id/activity_main_amerique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorMultiple"
+            android:checked="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="Amérique" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckedTextView
+            android:id="@+id/activity_main_asie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorMultiple"
+            android:checked="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="Asie" />
+
+        <CheckedTextView
+            android:id="@+id/activity_main_europe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorMultiple"
+            android:checked="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="Europe" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginVertical="5dp"
+        android:text="Difficuté:" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckedTextView
+            android:id="@+id/activity_main_diff_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorSingle"
+            android:checked="true"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            android:text="1" />
+
+        <CheckedTextView
+            android:id="@+id/activity_main_diff_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorSingle"
+            android:checked="false"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            android:text="2" />
+
+        <CheckedTextView
+            android:id="@+id/activity_main_diff_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorSingle"
+            android:checked="false"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            android:text="3" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Which game do you want to play?" />
+
+    <Button
+        android:id="@+id/activity_main_capitales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Capitales" />
+
+    <Button
+        android:id="@+id/activity_main_positions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="Positions" />
+
+
+</LinearLayout>
