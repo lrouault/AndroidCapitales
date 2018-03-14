@@ -25,7 +25,7 @@ public class TouchImageView extends ImageView {
     PointF last = new PointF();
     PointF start = new PointF();
     float minScale = 1f;
-    float maxScale = 15f;
+    float maxScale = 100f;
     float[] m;
 
     int viewWidth, viewHeight;

@@ -49,16 +49,28 @@ public class PositionActivity extends AppCompatActivity {
             public void onCliqueMap(float ratioX, float ratioY) {
                 double Latitude;
                 double Longitude;
-                double Latitude2;
 
-                //Transfo direct
-                Longitude  = 350f*ratioX-170f;
-                Latitude = -151f*ratioY+96;
+                double mapWidth = 4000;
+                double mapLonDelta = 350;
+                double mapLatBottomRadian = -68*Math.PI/180;
+                double mapHeight = 3000;
+                double ty = ratioY*mapHeight;
+                double tx = ratioX*mapWidth;
+                double mapLonLeft = -171.1;
 
-                //Transfo reel (direct+)
-                Latitude2 = 180f/Math.PI * (2f*Math.atan(Math.exp(Latitude*Math.PI/180f)) - Math.PI/2f);
+                double worldMapRadius = mapWidth / mapLonDelta * 360/(2 * Math.PI);
+                double mapOffsetY = ( worldMapRadius / 2 * Math.log( (1 + Math.sin(mapLatBottomRadian) ) / (1 - Math.sin(mapLatBottomRadian))  ));
+                double equatorY = mapHeight + mapOffsetY;
+                double a = (equatorY-ty)/worldMapRadius;
 
-                mVille.setText(Latitude+", "+Latitude2+", "+Longitude);
+                Latitude  = 180/Math.PI * (2 * Math.atan(Math.exp(a)) - Math.PI/2);
+                Longitude = mapLonLeft+tx/mapWidth*mapLonDelta;
+
+                mVille.setText(Latitude+", "+Longitude);
+
+
+
+
             }
         });
     }
