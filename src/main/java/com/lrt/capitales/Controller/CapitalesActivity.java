@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +77,8 @@ public class CapitalesActivity extends AppCompatActivity {
         mTVVie.setText("Vie: "+mVie);
 
 
-        mCapitalesBank = this.generateCapitales();
+        /*mCapitalesBank = this.generateCapitales();*/
+        mCapitalesBank = new CapitalesBank(mGamePreference,this);
 
         mPaysTextView = (TextView) findViewById(R.id.activity_capitales_pays);
         mReponseEditText = (AutoCompleteTextView) findViewById(R.id.activity_capitales_reponse);

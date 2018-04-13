@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controller.CapitalesActivity" />
-        <activity android:name=".Controller.PositionActivity"></activity>
+        <activity android:name=".Controller.PositionActivity" />
+        <activity android:name=".Controller.MapActivity"></activity>
     </application>
 
 </manifest>

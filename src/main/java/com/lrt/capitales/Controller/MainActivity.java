@@ -179,8 +179,31 @@ public class MainActivity extends AppCompatActivity {
         mMainPositions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent postionActivity = new Intent(MainActivity.this, PositionActivity.class);
-                startActivity(postionActivity);
+                if(mMainAfrique.isChecked()||mMainAmerique.isChecked()||
+                        mMainAsie.isChecked()||mMainEurope.isChecked()) {
+
+                    mPreferences.edit().putString("firstname", mMainName.getText().toString()).apply();
+
+                    mGamePreference = new GamePreference();
+                    mGamePreference.setAfrique(mMainAfrique.isChecked());
+                    mGamePreference.setAmerique(mMainAmerique.isChecked());
+                    mGamePreference.setAsie(mMainAsie.isChecked());
+                    mGamePreference.setEurope(mMainEurope.isChecked());
+                    if (mMainDiff1.isChecked()) {
+                        mGamePreference.setDifficulty(1);
+                    } else if (mMainDiff2.isChecked()) {
+                        mGamePreference.setDifficulty(2);
+                    } else {
+                        mGamePreference.setDifficulty(3);
+                    }
+
+                    /*Intent postionActivity = new Intent(MainActivity.this, PositionActivity.class);
+                    postionActivity.putExtra("GamePreference", mGamePreference);
+                    startActivity(postionActivity);*/
+                    Intent mapActivity = new Intent(MainActivity.this, MapActivity.class);
+                    mapActivity.putExtra("GamePreference", mGamePreference);
+                    startActivity(mapActivity);
+                }
             }
         });
 
