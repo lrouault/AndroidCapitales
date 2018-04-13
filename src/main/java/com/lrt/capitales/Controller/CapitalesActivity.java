@@ -130,7 +130,7 @@ public class CapitalesActivity extends AppCompatActivity {
                         mVie--;
                         mTVVie.setText("Vie: "+mVie);
                     }else{
-                        Toast.makeText(getApplicationContext(),"Score: "+mScore+"/"+mMeilleurScore,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Score: "+mScore+" Best: "+mMeilleurScore,Toast.LENGTH_LONG).show();
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {

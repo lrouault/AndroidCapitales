@@ -20,13 +20,15 @@
         android:layout_marginRight="5dp"
         android:layout_alignParentTop="true"/>
 
-    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+
+    <com.lrt.capitales.View.PinView
         android:id="@+id/activity_map_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"/>
 
-    <EditText
+
+    <TextView
         android:id="@+id/activity_map_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

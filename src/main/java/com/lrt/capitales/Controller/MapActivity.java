@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
@@ -18,10 +19,11 @@ import com.lrt.capitales.Model.Capitales;
 import com.lrt.capitales.Model.CapitalesBank;
 import com.lrt.capitales.Model.GamePreference;
 import com.lrt.capitales.R;
+import com.lrt.capitales.View.PinView;
 
 public class MapActivity extends AppCompatActivity {
 
-    private EditText mScoreText;
+    private TextView mScoreText;
     private Button mVille;
     private PointF mCoordClick;
 
@@ -29,11 +31,11 @@ public class MapActivity extends AppCompatActivity {
     private CapitalesBank mCapitalesBank;
     private Capitales mCurrentCapitale;
 
-    private float mmapWidth = 4000;
+    private double mmapWidth = 4000;
     private double mmapLonDelta = 350;
     private double mmapLatBottom = -68;
     private double mmapLatBottomRadian = mmapLatBottom*Math.PI/180;
-    private float mmapHeight = 3000;
+    private double mmapHeight = 3000;
     private double mmapLonLeft = -171.1;
 
     private Integer mCompteur,mScore,mMeilleurScore;
@@ -42,6 +44,8 @@ public class MapActivity extends AppCompatActivity {
 
     private static final String BUNDLE_STATE_SCORE="MAPcurrentScore";
     private static final String BUNDLE_STATE_CPT="MAPcurrentCpt";
+
+
 
 
     @Override
@@ -57,7 +61,7 @@ public class MapActivity extends AppCompatActivity {
             mScore = 0;
         }
 
-        mScoreText = (EditText) findViewById(R.id.activity_map_score);
+        mScoreText = (TextView) findViewById(R.id.activity_map_score);
         mVille = (Button) findViewById(R.id.activity_map_ville);
 
         mGamePreference = (GamePreference) getIntent().getSerializableExtra("GamePreference");
@@ -69,7 +73,7 @@ public class MapActivity extends AppCompatActivity {
         mCurrentCapitale = mCapitalesBank.getCapitales();
         displayCapitale();
 
-        final SubsamplingScaleImageView mImageView = (SubsamplingScaleImageView) findViewById(R.id.activity_map_map);
+        final PinView mImageView = (PinView) findViewById(R.id.activity_map_map);
         mImageView.setMaxScale(10.f);
 
         final GestureDetector gestureDetector = new GestureDetector(this,new GestureDetector.SimpleOnGestureListener() {
@@ -82,8 +86,8 @@ public class MapActivity extends AppCompatActivity {
                     mCoordClick = mImageView.viewToSourceCoord(e.getX(), e.getY());
                     if (mCoordClick.x<0) mCoordClick.x=0;
                     if (mCoordClick.y<0) mCoordClick.y=0;
-                    if (mCoordClick.x>mmapWidth) mCoordClick.x=mmapWidth;
-                    if (mCoordClick.y>mmapHeight) mCoordClick.y=mmapHeight;
+                    if (mCoordClick.x>mmapWidth) mCoordClick.x=(float)mmapWidth;
+                    if (mCoordClick.y>mmapHeight) mCoordClick.y=(float)mmapHeight;
 
 
                     latlong = xyTOlatlong(mCoordClick.x,mCoordClick.y);
@@ -94,12 +98,23 @@ public class MapActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Distance: "+dist.intValue()+" km" , Toast.LENGTH_SHORT).show();
 
-                    if (dist.intValue()<2000) mScore += (2000-dist.intValue())/20;
+                    if (dist.intValue()<100){
+                        mScore += 100;
+                    }else if (dist.intValue()<2000) {
+                        mScore += (2000-dist.intValue())/20;
+                    }
                     mCompteur+=1;
+
+                    mImageView.setPin(latlongTOxy(mCurrentCapitale.getCapitalLatitude(),
+                            mCurrentCapitale.getCapitalLongitude()));
+
                     if(mCompteur>10) {
                         if (mScore>mMeilleurScore) {
-                            mMeilleurScoreSVG.edit().putInt("MAP" + mGamePreference.getStringPreference(), mScore).apply();
+                            int bestScore=mScore/10;
+                            mMeilleurScoreSVG.edit().putInt("MAP" + mGamePreference.getStringPreference(), bestScore).apply();
                         }
+                        int score=mScore/10;
+                        Toast.makeText(getApplicationContext(),"Score: "+score+" Best: "+mMeilleurScore,Toast.LENGTH_LONG).show();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
@@ -162,16 +177,14 @@ public class MapActivity extends AppCompatActivity {
         return loclatlong;
     }
 
-    private double[] latlongTOxy(double lati, double longi) {
-        double[] xy = {0.,0.};
-
+    private PointF latlongTOxy(double lati, double longi) {
+        double xx,yy;
         double worldMapRadius = mmapWidth / mmapLonDelta * 360/(2 * Math.PI);
         double mapOffsetY = ( worldMapRadius / 2 * Math.log( (1 + Math.sin(mmapLatBottomRadian) ) / (1 - Math.sin(mmapLatBottomRadian))  ));
         double equatorY = mmapHeight + mapOffsetY;
 
-        xy[0] = (longi-mmapLonLeft)/mmapLonDelta*mmapWidth;
-        xy[1] = equatorY -worldMapRadius*Math.log(Math.tan(Math.PI*lati/360 + Math.PI/4));
-        xy[1] = xy[1];
-        return xy;
+        xx = (longi-mmapLonLeft)/mmapLonDelta*mmapWidth;
+        yy = (float) (equatorY -worldMapRadius*Math.log(Math.tan(Math.PI*lati/360 + Math.PI/4)));
+        return new PointF((float)xx,(float)yy);
     }
 }
