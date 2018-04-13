@@ -1,6 +1,7 @@
 package com.lrt.capitales.Controller;
 
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -73,7 +74,7 @@ public class CapitalesActivity extends AppCompatActivity {
 
         mTVScore = (TextView) findViewById(R.id.activity_capitales_score);
         mTVVie = (TextView) findViewById(R.id.activity_capitales_vie);
-        mTVScore.setText("Score: "+mScore+"/"+mMeilleurScore);
+        mTVScore.setText("Score: "+mScore+" Best: "+mMeilleurScore);
         mTVVie.setText("Vie: "+mVie);
 
 
@@ -122,7 +123,7 @@ public class CapitalesActivity extends AppCompatActivity {
                         mMeilleurScore = mScore;
                         mMeilleurScoreSVG.edit().putInt(mGamePreference.getStringPreference(),mScore).apply();
                     }
-                    mTVScore.setText("Score: "+mScore+"/"+mMeilleurScore);
+                    mTVScore.setText("Score: "+mScore+" Best: "+mMeilleurScore);
                 }else {
                     Toast.makeText(getApplicationContext(), "False: "+mCurrentCapitales.getCapitalName(), Toast.LENGTH_SHORT).show();
                     if(mVie>0){
@@ -130,7 +131,13 @@ public class CapitalesActivity extends AppCompatActivity {
                         mTVVie.setText("Vie: "+mVie);
                     }else{
                         Toast.makeText(getApplicationContext(),"Score: "+mScore+"/"+mMeilleurScore,Toast.LENGTH_LONG).show();
-                        finish();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                finish();
+                            }
+                        }, 1000);
                     }
                 }
                 mCurrentCapitales = mCapitalesBank.getCapitales();
@@ -151,64 +158,4 @@ public class CapitalesActivity extends AppCompatActivity {
     public void displayPays(final Capitales capitales) {
         mPaysTextView.setText(capitales.getCountryName());
     }
-
-    private CapitalesBank generateCapitales() {
-        ArrayList<Capitales> locList = new ArrayList<>();
-        String json = null;
-        try {
-            InputStream is = getAssets().open("country-capitals.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        try {
-            JSONObject obj = new JSONObject(json);
-            JSONArray m_jArry = obj.getJSONArray("pays");
-
-            for (int i = 0; i < m_jArry.length(); i++) {
-                JSONObject jo_inside = m_jArry.getJSONObject(i);
-                Capitales location = new Capitales();
-                Boolean ContinentOK = false;
-                location.setCountryName(jo_inside.getString("CountryName"));
-                location.setCapitalName(jo_inside.getString("CapitalName"));
-                location.setCapitalLatitude(jo_inside.getDouble("CapitalLatitude"));
-                location.setCapitalLongitude(jo_inside.getDouble("CapitalLongitude"));
-                location.setCountryCode(jo_inside.getString("CountryCode"));
-                location.setContinentName(jo_inside.getString("ContinentName"));
-                location.setDifficulty(jo_inside.getInt("Difficulty"));
-
-                if(location.getContinentName().equals("Afrique")){
-                    ContinentOK = mGamePreference.getAfrique();
-                }else if(location.getContinentName().equals("Amerique")){
-                    ContinentOK = mGamePreference.getAmerique();
-                }else if(location.getContinentName().equals("Asie")){
-                    ContinentOK = mGamePreference.getAsie();
-                }else{
-                    ContinentOK = mGamePreference.getEurope();
-                }
-
-                //Add your values in your `ArrayList` as below:
-                if(location.getDifficulty() <= mGamePreference.getDifficulty() && ContinentOK) {
-                    locList.add(location);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new CapitalesBank(locList);
-    }
-
-    //   Capitales cap1 = new Capitales("France", "Paris",-1.,1.,"fr","Europe",1 );
-    //    Capitales cap2 = new Capitales("Espagne", "Madrid",-1.,1.,"fr","Europe",1 );
-    //    Capitales cap3 = new Capitales("Italie", "Rome",-1.,1.,"fr","Europe",1 );
-    //    Capitales cap4 = new Capitales("Allemagne", "Berlin",-1.,1.,"fr","Europe",1 );
-    //
-    //    return new CapitalesBank(Arrays.asList(cap1,
-    //            cap2, cap3, cap4));
-    //}
 }
