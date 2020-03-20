@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="btn2048_bg">#898989</color>
+    <color name="btn2048_0">#b8aea0</color>
+    <color name="btn2048_1">#c5b295</color>
+    <color name="btn2048_2">#d1b58a</color>
+    <color name="btn2048_3">#dcb97f</color>
+    <color name="btn2048_4">#e6bc73</color>
+    <color name="btn2048_5">#f0c066</color>
+    <color name="btn2048_6">#f5ca80</color>
+    <color name="btn2048_7">#f9d499</color>
+    <color name="btn2048_8">#fcdfb2</color>
+    <color name="btn2048_9">#fee9cc</color>
+    <color name="btn2048_10">#fff4e5</color>
+    <color name="btn2048_11">#c0c8b4</color>
 </resources>

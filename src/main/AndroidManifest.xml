@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".Controller.CapitalesActivity" />
         <activity android:name=".Controller.PositionActivity" />
-        <activity android:name=".Controller.MapActivity"></activity>
+        <activity android:name=".Controller.MapActivity"/>
+        <activity android:name=".Controller.C2048Activity" />
     </application>
 
 </manifest>

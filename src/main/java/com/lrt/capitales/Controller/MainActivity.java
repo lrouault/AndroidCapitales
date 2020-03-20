@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mMainName;
     private Button mMainCapitales;
     private Button mMainPositions;
+    private Button mMain2048;
 
     private CheckedTextView mMainAfrique;
     private CheckedTextView mMainAmerique;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mMainName = (EditText) findViewById(R.id.activity_main_name);
         mMainCapitales = (Button) findViewById(R.id.activity_main_capitales);
         mMainPositions = (Button) findViewById(R.id.activity_main_positions);
+        mMain2048 = (Button) findViewById(R.id.activity_main_2048);
         mMainAfrique = (CheckedTextView) findViewById(R.id.activity_main_afrique);
         mMainAmerique = (CheckedTextView) findViewById(R.id.activity_main_amerique);
         mMainAsie = (CheckedTextView) findViewById(R.id.activity_main_asie);
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         mMainCapitales.setEnabled(mMainName.getText().toString().length() !=0);
         mMainPositions.setEnabled(true);
+        mMain2048.setEnabled(true);
 
         mMainName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,6 +207,15 @@ public class MainActivity extends AppCompatActivity {
                     mapActivity.putExtra("GamePreference", mGamePreference);
                     startActivity(mapActivity);
                 }
+            }
+        });
+
+        mMain2048.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent w_2048Activity = new Intent(MainActivity.this, C2048Activity.class);
+                startActivity(w_2048Activity);
+
             }
         });
 
