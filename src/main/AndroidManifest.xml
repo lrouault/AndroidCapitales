@@ -19,7 +19,9 @@
         <activity android:name=".Controller.CapitalesActivity" />
         <activity android:name=".Controller.PositionActivity" />
         <activity android:name=".Controller.MapActivity"/>
-        <activity android:name=".Controller.C2048Activity" />
+        <activity android:name=".Controller.C2048Activity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
     </application>
 
 </manifest>

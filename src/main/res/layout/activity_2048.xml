@@ -30,7 +30,7 @@
             android:text="Score : \n ...."
             android:layout_margin="5dp"
             android:gravity="center"
-            android:background="@color/btn2048_bg"/>
+            android:background="@color/btn2048_1"/>
         <TextView
             android:id="@+id/activity_2048_txtBestScore"
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:text="Best : \n ...."
             android:layout_margin="5dp"
             android:gravity="center"
-            android:background="@color/btn2048_bg"/>
+            android:background="@color/btn2048_2"/>
     </LinearLayout>
 
     <TextView
@@ -58,16 +58,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="15dp"
-            android:background="@android:color/white"
+            android:background="@android:color/transparent"
             android:text="Restart"
             android:textAlignment="textStart"
             android:textColor="#fe8205"/>
         <Button
+            android:id="@+id/activity_2048_btnUndo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Undo"
-            android:background="@android:color/white"
+            android:background="@android:color/transparent"
             android:textAlignment="textEnd"
             android:layout_marginRight="15dp"
             android:textColor="#fe8205" />

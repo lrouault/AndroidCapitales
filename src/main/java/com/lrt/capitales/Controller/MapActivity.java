@@ -23,6 +23,11 @@ import com.lrt.capitales.View.PinView;
 
 public class MapActivity extends AppCompatActivity {
 
+    // TODO rotation de l'ecran
+    // TODO Trait entre le point touche et la capitale
+    // TODO Commentaire
+
+
     private TextView mScoreText;
     private Button mVille;
     private PointF mCoordClick;

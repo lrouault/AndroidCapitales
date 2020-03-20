@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.lrt.capitales.Model.Game2048;
 import com.lrt.capitales.R;
 import com.lrt.capitales.View.OnSwipeListener;
@@ -17,34 +19,43 @@ import static java.lang.Math.pow;
 public class C2048Activity extends AppCompatActivity implements View.OnTouchListener {
     private static final String TAG = "C2048Activity";
 
+    // TODO Sauvegarde du meilleur score
+
+    // Model
     private Game2048 m_Game2048;
 
-    private TextView m_2048btn[] = new TextView[16];
-
-    private TextView m_txtScore, m_txtBestScore;
-    private Button m_btnRestart;
-    private LinearLayout m_2048blocsLayout;
-
+    // Gestion des deplacements des tuiles
     private GestureDetector m_gestureDetector;
 
+    // Plateau de jeu (0123 / 4567 / 891011 / 12131415 )
+    private TextView m_2048btn[] = new TextView[16];
 
+    // Layout et boutons actionnables
+    private LinearLayout m_2048blocsLayout;
+    private TextView m_txtScore, m_txtBestScore;
+    private Button m_btnRestart, m_btnUndo;
+
+    // Couleurs des tuiles
     private int m_colorArray[] = new int[]{R.color.btn2048_1,R.color.btn2048_2,R.color.btn2048_3,
             R.color.btn2048_4,R.color.btn2048_5,R.color.btn2048_6,
             R.color.btn2048_7,R.color.btn2048_8,R.color.btn2048_9,
             R.color.btn2048_10,R.color.btn2048_11};
 
-
-
+    // Instanciation du jeu
+    // Listener sur le layout
+    // Button listener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2048);
 
+        // Instanciation
         m_Game2048 = new Game2048();
-
 
         m_txtScore = (TextView) findViewById(R.id.activity_2048_txtScore);
         m_txtBestScore = (TextView) findViewById(R.id.activity_2048_txtBestScore);
+        m_btnRestart = (Button) findViewById(R.id.activity_2048_btnRestart);
+        m_btnUndo = (Button) findViewById(R.id.activity_2048_btnUndo);
 
         int i = 0;
         m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn00);
@@ -64,36 +75,27 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn23);
         m_2048btn[i]   = (TextView) findViewById(R.id.activity_2048_btn33);
 
-
-        m_btnRestart = (Button) findViewById(R.id.activity_2048_btnRestart);
-
+        // Creation et affichage du premier bloc
         m_Game2048.creationBloc();
         _majAffichage();
 
+        // Gestion des mouvements
         m_2048blocsLayout = (LinearLayout) findViewById(R.id.activity_2048_btnLayout);
+        m_2048blocsLayout.setOnTouchListener(this);
         m_gestureDetector = new GestureDetector(this, new OnSwipeListener() {
             @Override
             public boolean onSwipe(Direction direction) {
                 Log.d(TAG, "appel de Overriden on swipe");
-                if (direction == Direction.up) {
-                    m_Game2048.mvtHaut();
-                }
-                if (direction == Direction.down) {
-                    m_Game2048.mvtBas();
-                }
-                if (direction == Direction.left) {
-                    m_Game2048.mvtGauche();
-                }
-                if (direction == Direction.right) {
-                    m_Game2048.mvtDroite();
-                }
+                if (direction == Direction.up) {m_Game2048.mvtHaut();}
+                if (direction == Direction.down) {m_Game2048.mvtBas();}
+                if (direction == Direction.left) {m_Game2048.mvtGauche();}
+                if (direction == Direction.right) {m_Game2048.mvtDroite();}
                 _majAffichage();
                 return true;
             }
-        });
-        m_2048blocsLayout.setOnTouchListener(this);
+        }); /// END gestureDetector
 
-        // onClickListener restart
+        // Restart
         m_btnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,34 +104,43 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
                 _majAffichage();
             }
         });
+
+        // Undo
+        m_btnUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO m_Game2048.undo();
+                Toast.makeText(getApplicationContext(), "En cours de dev", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    // Gestion des mouvements tactiles
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         m_gestureDetector.onTouchEvent(event);
         return true;
     }
 
+    // Recuperation des infos du model pour l'affichage
+    // Score / Meilleur score / Grille
     private void _majAffichage() {
         Log.d(TAG,"appel de majAffichage");
         // Plateau
         int w_plateau[] = m_Game2048.getM_plateau();
         for(int i=0; i<16; i++) {
-            Log.d(TAG,"-- i = "+i+" -> "+w_plateau[i]);
             if(w_plateau[i]==0) {
                 m_2048btn[i].setText("");
                 m_2048btn[i].setBackgroundResource(R.color.btn2048_0);
             } else {
                 m_2048btn[i].setText(""+ ((int) pow(2, w_plateau[i])));
                 m_2048btn[i].setBackgroundResource(m_colorArray[w_plateau[i]%12]);
-
             }
         }
-
         // Score
         String w_strScore = "Score : \n\n"+m_Game2048.getM_score();
         String w_strBestScore = "Best score : \n\n"+m_Game2048.getM_bestScore();
         m_txtScore.setText(w_strScore);
         m_txtBestScore.setText(w_strBestScore);
-    }
+    } // END _majAffichage
 }

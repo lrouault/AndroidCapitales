@@ -10,7 +10,7 @@ import static java.lang.Math.pow;
  */
 
 public class Game2048 {
-    private static final String TAG = "Game2048";
+    private static final String TAG = "Game2048"; // pour les logs
 
     private int m_score = 0;
     private int m_bestScore = 0;
@@ -21,6 +21,7 @@ public class Game2048 {
     }
 
     public void mvtHaut() {
+        // TODO Pas de double concatenation dans les mouvements
         Log.d(TAG,"appel de mvtHaut");
         boolean w_modif,w_hadModif;
         w_hadModif=false;
