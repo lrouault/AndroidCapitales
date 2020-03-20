@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="2048"
-            android:textSize="50dp"
+            android:textSize="50sp"
             android:layout_weight="2"
             android:textAlignment="center"/>
         <TextView
@@ -27,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="Score : \n ...."
             android:layout_margin="5dp"
             android:gravity="center"
             android:background="@color/btn2048_1"/>
@@ -36,7 +35,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="Best : \n ...."
             android:layout_margin="5dp"
             android:gravity="center"
             android:background="@color/btn2048_2"/>
@@ -45,19 +43,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Peux-tu me battre ?"/>
+        android:text="Pret pour depasser les limites ?"/>
 
-    // Bouton restart
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="15dp">
         <Button
             android:id="@+id/activity_2048_btnRestart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="15dp"
             android:background="@android:color/transparent"
             android:text="Restart"
             android:textAlignment="textStart"
@@ -70,7 +67,6 @@
             android:text="Undo"
             android:background="@android:color/transparent"
             android:textAlignment="textEnd"
-            android:layout_marginRight="15dp"
             android:textColor="#fe8205" />
     </LinearLayout>
 
@@ -254,8 +250,5 @@
                 android:gravity="center"
                 android:textSize="20dp"/>
         </LinearLayout>
-
     </LinearLayout>
-
-
 </LinearLayout>

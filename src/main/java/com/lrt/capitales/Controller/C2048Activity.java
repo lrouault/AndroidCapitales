@@ -31,9 +31,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
     private TextView m_2048btn[] = new TextView[16];
 
     // Layout et boutons actionnables
-    private LinearLayout m_2048blocsLayout;
     private TextView m_txtScore, m_txtBestScore;
-    private Button m_btnRestart, m_btnUndo;
 
     // Couleurs des tuiles
     private int m_colorArray[] = new int[]{R.color.btn2048_1,R.color.btn2048_2,R.color.btn2048_3,
@@ -52,36 +50,34 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         // Instanciation
         m_Game2048 = new Game2048();
 
-        m_txtScore = (TextView) findViewById(R.id.activity_2048_txtScore);
-        m_txtBestScore = (TextView) findViewById(R.id.activity_2048_txtBestScore);
-        m_btnRestart = (Button) findViewById(R.id.activity_2048_btnRestart);
-        m_btnUndo = (Button) findViewById(R.id.activity_2048_btnUndo);
+        m_txtScore = findViewById(R.id.activity_2048_txtScore);
+        m_txtBestScore = findViewById(R.id.activity_2048_txtBestScore);
 
         int i = 0;
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn00);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn10);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn20);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn30);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn01);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn11);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn21);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn31);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn02);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn12);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn22);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn32);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn03);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn13);
-        m_2048btn[i++] = (TextView) findViewById(R.id.activity_2048_btn23);
-        m_2048btn[i]   = (TextView) findViewById(R.id.activity_2048_btn33);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn00);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn10);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn20);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn30);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn01);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn11);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn21);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn31);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn02);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn12);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn22);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn32);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn03);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn13);
+        m_2048btn[i++] = findViewById(R.id.activity_2048_btn23);
+        m_2048btn[i]   = findViewById(R.id.activity_2048_btn33);
 
         // Creation et affichage du premier bloc
         m_Game2048.creationBloc();
         _majAffichage();
 
         // Gestion des mouvements
-        m_2048blocsLayout = (LinearLayout) findViewById(R.id.activity_2048_btnLayout);
-        m_2048blocsLayout.setOnTouchListener(this);
+        LinearLayout w_2048blocsLayout = findViewById(R.id.activity_2048_btnLayout);
+        w_2048blocsLayout.setOnTouchListener(this);
         m_gestureDetector = new GestureDetector(this, new OnSwipeListener() {
             @Override
             public boolean onSwipe(Direction direction) {
@@ -96,6 +92,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         }); /// END gestureDetector
 
         // Restart
+        Button m_btnRestart = findViewById(R.id.activity_2048_btnRestart);
         m_btnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +103,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         });
 
         // Undo
+        Button m_btnUndo = findViewById(R.id.activity_2048_btnUndo);
         m_btnUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +131,8 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
                 m_2048btn[i].setText("");
                 m_2048btn[i].setBackgroundResource(R.color.btn2048_0);
             } else {
-                m_2048btn[i].setText(""+ ((int) pow(2, w_plateau[i])));
+                String w_str = ((Integer) (int) pow(2, w_plateau[i])).toString();
+                m_2048btn[i].setText(w_str);
                 m_2048btn[i].setBackgroundResource(m_colorArray[w_plateau[i]%12]);
             }
         }

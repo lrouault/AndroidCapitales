@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by lrouault on 28/02/2018.
+ *
  */
 
 public class GamePreference implements Serializable {

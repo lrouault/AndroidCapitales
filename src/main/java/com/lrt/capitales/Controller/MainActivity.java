@@ -45,17 +45,17 @@ public class MainActivity extends AppCompatActivity {
         mPreferences = getPreferences(MODE_PRIVATE);
 
 
-        mMainName = (EditText) findViewById(R.id.activity_main_name);
-        mMainCapitales = (Button) findViewById(R.id.activity_main_capitales);
-        mMainPositions = (Button) findViewById(R.id.activity_main_positions);
-        mMain2048 = (Button) findViewById(R.id.activity_main_2048);
-        mMainAfrique = (CheckedTextView) findViewById(R.id.activity_main_afrique);
-        mMainAmerique = (CheckedTextView) findViewById(R.id.activity_main_amerique);
-        mMainAsie = (CheckedTextView) findViewById(R.id.activity_main_asie);
-        mMainEurope = (CheckedTextView) findViewById(R.id.activity_main_europe);
-        mMainDiff1 = (CheckedTextView) findViewById(R.id.activity_main_diff_1);
-        mMainDiff2 = (CheckedTextView) findViewById(R.id.activity_main_diff_2);
-        mMainDiff3 = (CheckedTextView) findViewById(R.id.activity_main_diff_3);
+        mMainName = findViewById(R.id.activity_main_name);
+        mMainCapitales = findViewById(R.id.activity_main_capitales);
+        mMainPositions = findViewById(R.id.activity_main_positions);
+        mMain2048 = findViewById(R.id.activity_main_2048);
+        mMainAfrique = findViewById(R.id.activity_main_afrique);
+        mMainAmerique =  findViewById(R.id.activity_main_amerique);
+        mMainAsie = findViewById(R.id.activity_main_asie);
+        mMainEurope = findViewById(R.id.activity_main_europe);
+        mMainDiff1 = findViewById(R.id.activity_main_diff_1);
+        mMainDiff2 = findViewById(R.id.activity_main_diff_2);
+        mMainDiff3 = findViewById(R.id.activity_main_diff_3);
 
         if(mPreferences.contains("firstname"))
             mMainName.setText(mPreferences.getString("firstname",null));

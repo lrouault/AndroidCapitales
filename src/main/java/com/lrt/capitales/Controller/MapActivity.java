@@ -9,12 +9,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.lrt.capitales.Model.Capitales;
 import com.lrt.capitales.Model.CapitalesBank;
 import com.lrt.capitales.Model.GamePreference;
@@ -26,7 +24,6 @@ public class MapActivity extends AppCompatActivity {
     // TODO rotation de l'ecran
     // TODO Trait entre le point touche et la capitale
     // TODO Commentaire
-
 
     private TextView mScoreText;
     private Button mVille;
@@ -66,8 +63,8 @@ public class MapActivity extends AppCompatActivity {
             mScore = 0;
         }
 
-        mScoreText = (TextView) findViewById(R.id.activity_map_score);
-        mVille = (Button) findViewById(R.id.activity_map_ville);
+        mScoreText = findViewById(R.id.activity_map_score);
+        mVille = findViewById(R.id.activity_map_ville);
 
         mGamePreference = (GamePreference) getIntent().getSerializableExtra("GamePreference");
 

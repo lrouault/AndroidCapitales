@@ -7,6 +7,7 @@ import static java.lang.Math.pow;
 
 /**
  * Created by lrouault on 26/02/2018.
+ * Partie model du jeu 2048
  */
 
 public class Game2048 {
@@ -209,7 +210,6 @@ public class Game2048 {
     }
 
     public int[] getM_plateau() {
-        int j=0;
         return m_plateau;
     }
 }

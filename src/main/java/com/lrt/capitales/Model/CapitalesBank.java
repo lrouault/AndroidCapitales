@@ -44,7 +44,6 @@ public class CapitalesBank {
             for (int i = 0; i < m_jArry.length(); i++) {
                 JSONObject jo_inside = m_jArry.getJSONObject(i);
                 Capitales location = new Capitales();
-                Boolean ContinentOK = false;
                 location.setCountryName(jo_inside.getString("CountryName"));
                 location.setCapitalName(jo_inside.getString("CapitalName"));
                 location.setCapitalLatitude(jo_inside.getDouble("CapitalLatitude"));
@@ -53,6 +52,7 @@ public class CapitalesBank {
                 location.setContinentName(jo_inside.getString("ContinentName"));
                 location.setDifficulty(jo_inside.getInt("Difficulty"));
 
+                Boolean ContinentOK;
                 if(location.getContinentName().equals("Afrique")){
                     ContinentOK = GamePref.getAfrique();
                 }else if(location.getContinentName().equals("Amerique")){
@@ -91,7 +91,7 @@ public class CapitalesBank {
     }
 
     public List<String> getAutoComplCapitales(){
-        List<String> liste = new ArrayList<String>();
+        List<String> liste = new ArrayList<>();
         for (int i=0; i<mCapitalesList.size(); i++){
             liste.add(mCapitalesList.get(i).getCapitalName());
         }

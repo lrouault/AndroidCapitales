@@ -18,15 +18,6 @@ import com.lrt.capitales.Model.CapitalesBank;
 import com.lrt.capitales.Model.GamePreference;
 import com.lrt.capitales.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CapitalesActivity extends AppCompatActivity {
@@ -39,7 +30,6 @@ public class CapitalesActivity extends AppCompatActivity {
 
     private CapitalesBank mCapitalesBank;
     private Capitales mCurrentCapitales;
-    private List<String> mAutoComplete;
 
     private GamePreference mGamePreference;
 
@@ -72,8 +62,8 @@ public class CapitalesActivity extends AppCompatActivity {
         mMeilleurScore = mMeilleurScoreSVG.getInt(mGamePreference.getStringPreference(),0);
 
 
-        mTVScore = (TextView) findViewById(R.id.activity_capitales_score);
-        mTVVie = (TextView) findViewById(R.id.activity_capitales_vie);
+        mTVScore = findViewById(R.id.activity_capitales_score);
+        mTVVie = findViewById(R.id.activity_capitales_vie);
         mTVScore.setText("Score: "+mScore+" Best: "+mMeilleurScore);
         mTVVie.setText("Vie: "+mVie);
 
@@ -88,7 +78,7 @@ public class CapitalesActivity extends AppCompatActivity {
         mCurrentCapitales = mCapitalesBank.getCapitales();
         this.displayPays(mCurrentCapitales);
 
-        mAutoComplete = mCapitalesBank.getAutoComplCapitales();
+        List<String> mAutoComplete = mCapitalesBank.getAutoComplCapitales();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,mAutoComplete);
         mReponseEditText.setAdapter(adapter);
