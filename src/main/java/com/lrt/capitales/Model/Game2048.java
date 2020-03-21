@@ -2,6 +2,8 @@ package com.lrt.capitales.Model;
 
 import android.util.Log;
 
+import com.lrt.capitales.common.commonEnum;
+
 import java.util.Random;
 import static java.lang.Math.pow;
 
@@ -21,118 +23,39 @@ public class Game2048 {
         Log.d(TAG, "appel du constructeur");
     }
 
-    public void mvtHaut() {
-        // TODO Pas de double concatenation dans les mouvements
-        Log.d(TAG,"appel de mvtHaut");
-        boolean w_modif,w_hadModif;
+    // METHODES PUBLIQUES
+    public void onMouvement(commonEnum.Direction direction) {
+        // Algo de reference ecrit pour un decalage vers le haut
+        // la fonction _translateMvtIJ permet de changer d'indice pour les 3 autres directions
+        Log.d(TAG,"appel de onMouvement");
+        boolean w_hadModif;
         w_hadModif=false;
-        for(int i=0; i<4; i++){
-            w_modif = true;
-            while (w_modif){
-                w_modif=false;
-                for(int j=0; j<3; j++){
-                    if (m_plateau[i+4*j]==0 && m_plateau[i+4*(j+1)]!=0){
-                        m_plateau[i+4*j] = m_plateau[i+4*(j+1)];
-                        m_plateau[i+4*(j+1)] = 0;
-                        w_modif=true;
-                        w_hadModif=true;
-                    }
-                    if (m_plateau[i+4*j]==m_plateau[i+4*(j+1)] && m_plateau[i+4*j]!=0){
-                        m_plateau[i+4*j] += 1;
-                        m_plateau[i+4*(j+1)] = 0;
-                        w_modif=true;
-                        w_hadModif=true;
+        // Boucle sur les colonnes
+        for(int i=0; i<4; i++) {
+            // Tous les elements sont colles en haut
+            boolean w_modif = true;
+            while (w_modif) {
+                w_modif = false;
+                for (int j = 0; j < 3; j++) {
+                    if (m_plateau[_translateMvtIJ(direction, i, j)] == 0 && m_plateau[_translateMvtIJ(direction, i, j+1)] != 0) {
+                        m_plateau[_translateMvtIJ(direction, i, j)] = m_plateau[_translateMvtIJ(direction, i, j+1)];
+                        m_plateau[_translateMvtIJ(direction, i, j+1)] = 0;
+                        w_modif = true;
+                        w_hadModif = true;
                     }
                 }
             }
-        }
-        if (w_hadModif) {
-            creationBloc();
-            _majScore();
-        }
-    }
-
-    public void mvtBas() {
-        Log.d(TAG,"appel de mvtBas");
-        boolean w_modif,w_hadModif;
-        w_hadModif=false;
-        for(int i=0; i<4; i++){
-            w_modif = true;
-            while (w_modif) {
-                w_modif = false;
-                for (int j = 3; j > 0; j--) {
-                    if (m_plateau[i+4*j] == 0 && m_plateau[i+4*(j-1)] != 0) {
-                        m_plateau[i+4*j] = m_plateau[i+4*(j-1)];
-                        m_plateau[i+4*(j-1)] = 0;
-                        w_modif = true;
-                        w_hadModif=true;
+            // Concatenation des elements identiques
+            // Pas de double concatenation grace a l'indice k
+            for (int j = 0; j < 3; j++) {
+                if (m_plateau[_translateMvtIJ(direction, i, j)] == m_plateau[_translateMvtIJ(direction, i, j+1)]
+                        && m_plateau[_translateMvtIJ(direction, i, j)] != 0) {
+                    m_plateau[_translateMvtIJ(direction, i, j)] += 1;
+                    for (int k = j+1; k < 3; k++) {
+                        m_plateau[_translateMvtIJ(direction, i, k)] = m_plateau[_translateMvtIJ(direction, i, k+1)];
                     }
-                    if (m_plateau[i+4*j] == m_plateau[i+4*(j-1)] && m_plateau[i+4*j] != 0) {
-                        m_plateau[i+4*j] += 1;
-                        m_plateau[i+4*(j-1)] = 0;
-                        w_modif = true;
-                        w_hadModif=true;
-                    }
-                }
-            }
-        }
-        if (w_hadModif) {
-            creationBloc();
-            _majScore();
-        }
-    }
-
-    public void mvtGauche() {
-        Log.d(TAG,"appel de mvtGauche");
-        boolean w_modif,w_hadModif;
-        w_hadModif=false;
-        for(int j=0; j<4; j++) {
-            w_modif = true;
-            while (w_modif) {
-                w_modif = false;
-                for (int i = 0; i < 3; i++) {
-                    if (m_plateau[i+4*j] == 0 && m_plateau[i+1+4*j] != 0) {
-                        m_plateau[i+4*j] = m_plateau[i+1+4*j];
-                        m_plateau[i+1+4*j] = 0;
-                        w_modif = true;
-                        w_hadModif=true;
-                    }
-                    if (m_plateau[i+4*j] == m_plateau[i + 1+4*j] && m_plateau[i+4*j] != 0) {
-                        m_plateau[i+4*j] += 1;
-                        m_plateau[i + 1+4*j] = 0;
-                        w_modif = true;
-                        w_hadModif=true;
-                    }
-                }
-            }
-        }
-        if (w_hadModif) {
-            creationBloc();
-            _majScore();
-        }
-    }
-
-    public void mvtDroite() {
-        Log.d(TAG,"appel de mvtDroite");
-        boolean w_modif,w_hadModif;
-        w_hadModif=false;
-        for(int j=0; j<4; j++){
-            w_modif = true;
-            while (w_modif) {
-                w_modif = false;
-                for (int i = 3; i > 0; i--) {
-                    if (m_plateau[i+4*j] == 0 && m_plateau[i-1+4*j] != 0) {
-                        m_plateau[i+4*j] = m_plateau[i-1+4*j];
-                        m_plateau[i-1+4*j] = 0;
-                        w_modif = true;
-                        w_hadModif=true;
-                    }
-                    if (m_plateau[i+4*j] == m_plateau[i-1+4*j] && m_plateau[i+4*j] != 0) {
-                        m_plateau[i+4*j] += 1;
-                        m_plateau[i-1+4*j] = 0;
-                        w_modif = true;
-                        w_hadModif=true;
-                    }
+                    m_plateau[_translateMvtIJ(direction, i, 3)] = 0;
+                    w_hadModif = true;
                 }
             }
         }
@@ -155,10 +78,8 @@ public class Game2048 {
                 }
             }
 
-        Log.d(TAG,"-- nbCasesVides "+w_countVide);
         if(w_countVide != 0){
             int newPosition = 1 + w_r.nextInt(w_countVide);
-            Log.d(TAG,"-- posNouveauBloc "+newPosition);
             w_countVide = 0;
             for (int i=0;i<4;i++) {
                 for (int j = 0; j < 4; j++) {
@@ -166,26 +87,37 @@ public class Game2048 {
                         w_countVide++;
                     }
                     if (w_countVide == newPosition) {
-                        int random5 = w_r.nextInt(4);
-                        if (random5==3) {
-                            m_plateau[i + 4 * j] = 2;
-                        } else {
-                            m_plateau[i + 4 * j] = 1;
-                        }
-
+                        int w_random5 = w_r.nextInt(4);
+                        if (w_random5==3) {m_plateau[i + 4 * j] = 2;}
+                        else {m_plateau[i + 4 * j] = 1;}
                         w_countVide++;
                     }
                 }
             }
         }
-        Log.d(TAG,"-- fin appel creationBloc");
     }
-
 
     public void restart() {
         Log.d(TAG,"appel de restart");
         m_score = 0;
         m_plateau = new int[]{0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
+    }
+
+
+    // METHODES PRIVEES
+    private int _translateMvtIJ(commonEnum.Direction direction, int i, int j) {
+        switch (direction)  {
+            case UP: // Cas de reference
+                return i+4*j;
+            case DOWN: // Inversion verticale
+                return i+4*(3-j);
+            case LEFT: // Inversion (i,j) par rapport au cas de reference
+                return j+4*i;
+            case RIGHT: // Inversion horizontale
+                return (3-j)+4*i;
+        }
+        Log.e(TAG, "_translateMvtIJ Direction inconnue");
+        return -1;
     }
 
     private void _majScore() {
@@ -197,7 +129,6 @@ public class Game2048 {
         // Maj du meilleur scrore
         if (m_score > m_bestScore) {m_bestScore=m_score;}
     }
-
 
 
     // GETTER AND SETTER

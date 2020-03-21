@@ -9,10 +9,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-public class TouchImageView extends ImageView {
+public class TouchImageView extends android.support.v7.widget.AppCompatImageView {
     Matrix matrix;
 
     // We can be in one of these 3 states
@@ -144,8 +142,8 @@ public class TouchImageView extends ImageView {
 
             if (origWidth * saveScale <= viewWidth
                     || origHeight * saveScale <= viewHeight)
-                matrix.postScale(mScaleFactor, mScaleFactor, viewWidth / 2,
-                        viewHeight / 2);
+                matrix.postScale(mScaleFactor, mScaleFactor, (float)(viewWidth / 2.),
+                        (float)(viewHeight / 2.));
             else
                 matrix.postScale(mScaleFactor, mScaleFactor,
                         detector.getFocusX(), detector.getFocusY());
@@ -244,7 +242,7 @@ public class TouchImageView extends ImageView {
     }
 
     public interface MyOnClickMapListener {
-        public void onCliqueMap(float ratioX, float ratioY);
+        void onCliqueMap(float ratioX, float ratioY);
     }
 
     public void setMyOnClickMapListener(MyOnClickMapListener listener){

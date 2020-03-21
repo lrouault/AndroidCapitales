@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.lrt.capitales.Model.Game2048;
 import com.lrt.capitales.R;
 import com.lrt.capitales.View.OnSwipeListener;
+import com.lrt.capitales.common.commonEnum;
+
 import static java.lang.Math.pow;
 
 public class C2048Activity extends AppCompatActivity implements View.OnTouchListener {
@@ -80,12 +82,9 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         w_2048blocsLayout.setOnTouchListener(this);
         m_gestureDetector = new GestureDetector(this, new OnSwipeListener() {
             @Override
-            public boolean onSwipe(Direction direction) {
+            public boolean onSwipe(commonEnum.Direction direction) {
                 Log.d(TAG, "appel de Overriden on swipe");
-                if (direction == Direction.up) {m_Game2048.mvtHaut();}
-                if (direction == Direction.down) {m_Game2048.mvtBas();}
-                if (direction == Direction.left) {m_Game2048.mvtGauche();}
-                if (direction == Direction.right) {m_Game2048.mvtDroite();}
+                m_Game2048.onMouvement(direction);
                 _majAffichage();
                 return true;
             }
