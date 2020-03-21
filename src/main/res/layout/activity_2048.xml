@@ -59,15 +59,16 @@
             android:text="Restart"
             android:textAlignment="textStart"
             android:textColor="#fe8205"/>
+
         <Button
             android:id="@+id/activity_2048_btnUndo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Undo"
             android:background="@android:color/transparent"
+            android:text="Undo"
             android:textAlignment="textEnd"
-            android:textColor="#fe8205" />
+            android:textColor="@color/txt2048_OK" />
     </LinearLayout>
 
     // Box 4*4
