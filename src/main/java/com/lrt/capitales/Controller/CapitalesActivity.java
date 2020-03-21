@@ -40,7 +40,7 @@ public class CapitalesActivity extends AppCompatActivity {
     private static final String BUNDLE_STATE_VIE="currentVie";
 
     private Integer mMeilleurScore;
-    private SharedPreferences mMeilleurScoreSVG;
+    private SharedPreferences m_sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,8 @@ public class CapitalesActivity extends AppCompatActivity {
 
         mGamePreference  = (GamePreference) getIntent().getSerializableExtra("GamePreference");
 
-        mMeilleurScoreSVG = getPreferences(MODE_PRIVATE);
-        mMeilleurScore = mMeilleurScoreSVG.getInt(mGamePreference.getStringPreference(),0);
+        m_sharedPreferences = getPreferences(MODE_PRIVATE);
+        mMeilleurScore = m_sharedPreferences.getInt(mGamePreference.getStringPreference(),0);
 
 
         mTVScore = findViewById(R.id.activity_capitales_score);
@@ -111,7 +111,7 @@ public class CapitalesActivity extends AppCompatActivity {
                     mScore++;
                     if (mScore>mMeilleurScore) {
                         mMeilleurScore = mScore;
-                        mMeilleurScoreSVG.edit().putInt(mGamePreference.getStringPreference(),mScore).apply();
+                        m_sharedPreferences.edit().putInt(mGamePreference.getStringPreference(),mScore).apply();
                     }
                     mTVScore.setText("Score: "+mScore+" Best: "+mMeilleurScore);
                 }else {

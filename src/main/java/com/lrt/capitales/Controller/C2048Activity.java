@@ -1,5 +1,6 @@
 package com.lrt.capitales.Controller;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,12 +16,17 @@ import com.lrt.capitales.R;
 import com.lrt.capitales.View.OnSwipeListener;
 import com.lrt.capitales.Common.commonEnum;
 
+import java.util.StringTokenizer;
+
 import static java.lang.Math.pow;
 
 public class C2048Activity extends AppCompatActivity implements View.OnTouchListener {
     private static final String TAG = "C2048Activity";
+    private static final int C_CASES_X = 4;
+    private static final int C_CASES_Y = 4;
 
-    // TODO Sauvegarde du meilleur score
+    // Sauvegarde du plateau a la fermeture de l'app
+    private SharedPreferences m_sharedPreferences;
 
     // Model
     private Game2048 m_Game2048;
@@ -29,7 +35,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
     private GestureDetector m_gestureDetector;
 
     // Plateau de jeu (0123 / 4567 / 891011 / 12131415 )
-    private TextView m_2048btn[] = new TextView[16];
+    private TextView m_2048btn[] = new TextView[C_CASES_X * C_CASES_Y];
 
     // Layout et boutons actionnables
     private TextView m_txtScore, m_txtBestScore;
@@ -49,9 +55,24 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2048);
 
-        // Instanciation
-        m_Game2048 = new Game2048();
+        // Instantiation du plateau avec celle sauvegardee si existante
+        m_sharedPreferences = getPreferences(MODE_PRIVATE);
+        int w_savedBestScore = m_sharedPreferences.getInt("C2048_bestScore",0);
+        String w_strSavedPlateau = m_sharedPreferences.getString("C2048_plateau","");
+        Log.d(TAG,"Plateau sauvegarde :"+w_strSavedPlateau);
+        Log.d(TAG,"Score   sauvegarde :"+w_savedBestScore);
+        if (w_strSavedPlateau!="") {
+            StringTokenizer st = new StringTokenizer(w_strSavedPlateau, ",");
+            int[] w_savedPlateau = new int[C_CASES_X * C_CASES_Y];
+            for (int i = 0; i < C_CASES_X * C_CASES_Y; i++) {
+                w_savedPlateau[i] = Integer.parseInt(st.nextToken());
+            }
+            m_Game2048 = new Game2048(w_savedPlateau,w_savedBestScore);
+        } else {
+            m_Game2048 = new Game2048(w_savedBestScore);
+        }
 
+        // Cablage de la vue
         m_txtScore = findViewById(R.id.activity_2048_txtScore);
         m_txtBestScore = findViewById(R.id.activity_2048_txtBestScore);
         m_btnUndo = findViewById(R.id.activity_2048_btnUndo);
@@ -75,7 +96,6 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         m_2048btn[i]   = findViewById(R.id.activity_2048_btn33);
 
         // Creation et affichage du premier bloc
-        m_Game2048.creationBloc();
         _majAffichage();
 
         // Gestion des mouvements
@@ -87,6 +107,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
                 Log.d(TAG, "appel de Overriden on swipe");
                 m_Game2048.onMouvement(direction);
                 _majAffichage();
+                _majSavedPlateau();
                 return true;
             }
         }); /// END gestureDetector
@@ -99,6 +120,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
                 m_Game2048.restart();
                 m_Game2048.creationBloc();
                 _majAffichage();
+                _majSavedPlateau();
             }
         });
 
@@ -109,6 +131,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
             public void onClick(View v) {
                 m_Game2048.undo();
                 _majAffichage();
+                _majSavedPlateau();
             }
         });
     }
@@ -123,10 +146,10 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
     // Recuperation des infos du model pour l'affichage
     // Score / Meilleur score / Grille
     private void _majAffichage() {
-        Log.d(TAG,"appel de majAffichage");
+        Log.d(TAG,"appel de _majAffichage");
         // Plateau
         int w_plateau[] = m_Game2048.getM_plateau();
-        for(int i=0; i<16; i++) {
+        for(int i = 0; i< C_CASES_X * C_CASES_Y; i++) {
             if(w_plateau[i]==0) {
                 m_2048btn[i].setText("");
                 m_2048btn[i].setBackgroundResource(R.color.btn2048_0);
@@ -151,4 +174,15 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         m_txtScore.setText(w_strScore);
         m_txtBestScore.setText(w_strBestScore);
     } // END _majAffichage
+
+    private void _majSavedPlateau() {
+        Log.d(TAG,"appel de _majSavedPlateau");
+        int[] w_plateau = m_Game2048.getM_plateau();
+        StringBuilder w_strSavedPlateau = new StringBuilder();
+        for (int i = 0; i < w_plateau.length; i++) {
+            w_strSavedPlateau.append(w_plateau[i]).append(",");
+        }
+        m_sharedPreferences.edit().putString("C2048_plateau", w_strSavedPlateau.toString()).apply();
+        m_sharedPreferences.edit().putInt("C2048_bestScore", m_Game2048.getM_bestScore()).apply();
+    }
 }
