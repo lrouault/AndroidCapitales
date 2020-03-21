@@ -3,7 +3,7 @@ package com.lrt.capitales.View;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.lrt.capitales.common.commonEnum;
+import com.lrt.capitales.Common.commonEnum;
 
 /**
  * Created by lrouault on 20/03/2020.

@@ -9,12 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lrt.capitales.Model.Game2048;
 import com.lrt.capitales.R;
 import com.lrt.capitales.View.OnSwipeListener;
-import com.lrt.capitales.common.commonEnum;
+import com.lrt.capitales.Common.commonEnum;
 
 import static java.lang.Math.pow;
 
@@ -34,6 +33,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
 
     // Layout et boutons actionnables
     private TextView m_txtScore, m_txtBestScore;
+    private Button m_btnUndo;
 
     // Couleurs des tuiles
     private int m_colorArray[] = new int[]{R.color.btn2048_1,R.color.btn2048_2,R.color.btn2048_3,
@@ -54,6 +54,7 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
 
         m_txtScore = findViewById(R.id.activity_2048_txtScore);
         m_txtBestScore = findViewById(R.id.activity_2048_txtBestScore);
+        m_btnUndo = findViewById(R.id.activity_2048_btnUndo);
 
         int i = 0;
         m_2048btn[i++] = findViewById(R.id.activity_2048_btn00);
@@ -102,12 +103,12 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         });
 
         // Undo
-        Button m_btnUndo = findViewById(R.id.activity_2048_btnUndo);
+        m_btnUndo.setEnabled(false);
         m_btnUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO m_Game2048.undo();
-                Toast.makeText(getApplicationContext(), "En cours de dev", Toast.LENGTH_SHORT).show();
+                m_Game2048.undo();
+                _majAffichage();
             }
         });
     }
@@ -132,9 +133,18 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
             } else {
                 String w_str = ((Integer) (int) pow(2, w_plateau[i])).toString();
                 m_2048btn[i].setText(w_str);
-                m_2048btn[i].setBackgroundResource(m_colorArray[w_plateau[i]%12]);
+                m_2048btn[i].setBackgroundResource(m_colorArray[w_plateau[i]%m_colorArray.length]);
             }
         }
+        // Undo
+        if (m_Game2048.isM_enableUndo()){
+            m_btnUndo.setTextColor(getResources().getColor(R.color.txt2048_OK));
+            m_btnUndo.setEnabled(true);
+        } else {
+            m_btnUndo.setTextColor(getResources().getColor(R.color.txt2048_KO));
+            m_btnUndo.setEnabled(false);
+        }
+
         // Score
         String w_strScore = "Score : \n\n"+m_Game2048.getM_score();
         String w_strBestScore = "Best score : \n\n"+m_Game2048.getM_bestScore();

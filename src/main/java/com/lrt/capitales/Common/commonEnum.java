@@ -1,4 +1,4 @@
-package com.lrt.capitales.common;
+package com.lrt.capitales.Common;
 
 public class commonEnum {
     public enum Direction{

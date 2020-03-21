@@ -16,4 +16,6 @@
     <color name="btn2048_9">#fee9cc</color>
     <color name="btn2048_10">#fff4e5</color>
     <color name="btn2048_11">#c0c8b4</color>
+    <color name="txt2048_OK">#fe8205</color>
+    <color name="txt2048_KO">#31FE8205</color>
 </resources>

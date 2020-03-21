@@ -2,8 +2,9 @@ package com.lrt.capitales.Model;
 
 import android.util.Log;
 
-import com.lrt.capitales.common.commonEnum;
+import com.lrt.capitales.Common.commonEnum;
 
+import java.util.Arrays;
 import java.util.Random;
 import static java.lang.Math.pow;
 
@@ -18,6 +19,8 @@ public class Game2048 {
     private int m_score = 0;
     private int m_bestScore = 0;
     private int[] m_plateau = new int[]{0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
+    private int[] m_plateauPrevious = Arrays.copyOf(m_plateau, m_plateau.length);
+    private boolean m_enableUndo = false;
 
     public Game2048() {
         Log.d(TAG, "appel du constructeur");
@@ -28,8 +31,9 @@ public class Game2048 {
         // Algo de reference ecrit pour un decalage vers le haut
         // la fonction _translateMvtIJ permet de changer d'indice pour les 3 autres directions
         Log.d(TAG,"appel de onMouvement");
-        boolean w_hadModif;
-        w_hadModif=false;
+        boolean w_hadModif = false;
+        int[] w_plateauCopy = Arrays.copyOf(m_plateau, m_plateau.length);
+
         // Boucle sur les colonnes
         for(int i=0; i<4; i++) {
             // Tous les elements sont colles en haut
@@ -60,6 +64,8 @@ public class Game2048 {
             }
         }
         if (w_hadModif) {
+            m_plateauPrevious = w_plateauCopy;
+            m_enableUndo = true;
             creationBloc();
             _majScore();
         }
@@ -103,6 +109,13 @@ public class Game2048 {
         m_plateau = new int[]{0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
     }
 
+    public void undo() {
+        Log.d(TAG,"appel de undo");
+        m_enableUndo = false;
+        m_plateau = m_plateauPrevious;
+        _majScore();
+    }
+
 
     // METHODES PRIVEES
     private int _translateMvtIJ(commonEnum.Direction direction, int i, int j) {
@@ -142,5 +155,17 @@ public class Game2048 {
 
     public int[] getM_plateau() {
         return m_plateau;
+    }
+
+    public void setM_plateau(int[] m_plateau) {
+        this.m_plateau = m_plateau;
+    }
+
+    public int[] getM_plateauPrevious() {
+        return m_plateauPrevious;
+    }
+
+    public boolean isM_enableUndo() {
+        return m_enableUndo;
     }
 }

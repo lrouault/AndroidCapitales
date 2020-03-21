@@ -200,9 +200,6 @@ public class MainActivity extends AppCompatActivity {
                         mGamePreference.setDifficulty(3);
                     }
 
-                    /*Intent postionActivity = new Intent(MainActivity.this, PositionActivity.class);
-                    postionActivity.putExtra("GamePreference", mGamePreference);
-                    startActivity(postionActivity);*/
                     Intent mapActivity = new Intent(MainActivity.this, MapActivity.class);
                     mapActivity.putExtra("GamePreference", mGamePreference);
                     startActivity(mapActivity);
