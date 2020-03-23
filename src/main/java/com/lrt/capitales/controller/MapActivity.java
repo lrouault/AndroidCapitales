@@ -1,4 +1,4 @@
-package com.lrt.capitales.Controller;
+package com.lrt.capitales.controller;
 
 import android.content.SharedPreferences;
 import android.graphics.PointF;
@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.lrt.capitales.Model.Capitales;
-import com.lrt.capitales.Model.CapitalesBank;
-import com.lrt.capitales.Model.GamePreference;
+import com.lrt.capitales.model.capitales.Capitales;
+import com.lrt.capitales.model.capitales.CapitalesBank;
+import com.lrt.capitales.model.capitales.GamePreference;
 import com.lrt.capitales.R;
-import com.lrt.capitales.View.PinView;
+import com.lrt.capitales.view.PinView;
 
 public class MapActivity extends AppCompatActivity {
 

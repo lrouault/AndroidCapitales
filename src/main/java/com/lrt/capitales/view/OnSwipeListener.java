@@ -1,9 +1,9 @@
-package com.lrt.capitales.View;
+package com.lrt.capitales.view;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.lrt.capitales.Common.commonEnum;
+import com.lrt.capitales.common.CommonEnum;
 
 /**
  * Created by lrouault on 20/03/2020.
@@ -38,12 +38,12 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener {
         float x2 = e2.getX();
         float y2 = e2.getY();
 
-        commonEnum.Direction direction = getDirection(x1,y1,x2,y2);
+        CommonEnum.Direction direction = getDirection(x1,y1,x2,y2);
         return onSwipe(direction);
     }
 
     /** Override this method. The Direction enum will tell you how the user swiped. */
-    public boolean onSwipe(commonEnum.Direction direction){
+    public boolean onSwipe(CommonEnum.Direction direction){
         return false;
     }
 
@@ -56,9 +56,9 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener {
      * @param y2 the y position of the second point
      * @return the direction
      */
-    public commonEnum.Direction getDirection(float x1, float y1, float x2, float y2){
+    public CommonEnum.Direction getDirection(float x1, float y1, float x2, float y2){
         double angle = getAngle(x1, y1, x2, y2);
-        return commonEnum.Direction.fromAngle(angle);
+        return CommonEnum.Direction.fromAngle(angle);
     }
 
     /**

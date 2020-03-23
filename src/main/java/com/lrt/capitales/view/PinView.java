@@ -1,4 +1,4 @@
-package com.lrt.capitales.View;
+package com.lrt.capitales.view;
 
         import android.content.Context;
         import android.graphics.*;

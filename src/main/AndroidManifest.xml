@@ -9,17 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.MainActivity">
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.CapitalesActivity" />
-        <activity android:name=".Controller.MapActivity"/>
-        <activity android:name=".Controller.C2048Activity"
+        <activity android:name=".controller.CapitalesActivity" />
+        <activity android:name=".controller.MapActivity"/>
+        <activity android:name=".controller.C2048Activity"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".controller.LabyrintheActivity"
+            android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden"/>
     </application>
 

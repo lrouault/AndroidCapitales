@@ -1,4 +1,4 @@
-package com.lrt.capitales.Controller;
+package com.lrt.capitales.controller;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lrt.capitales.Model.Capitales;
-import com.lrt.capitales.Model.CapitalesBank;
-import com.lrt.capitales.Model.GamePreference;
+import com.lrt.capitales.model.capitales.Capitales;
+import com.lrt.capitales.model.capitales.CapitalesBank;
+import com.lrt.capitales.model.capitales.GamePreference;
 import com.lrt.capitales.R;
 
 import java.util.List;

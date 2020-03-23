@@ -1,8 +1,8 @@
-package com.lrt.capitales.Model;
+package com.lrt.capitales.model;
 
 import android.util.Log;
 
-import com.lrt.capitales.Common.commonEnum;
+import com.lrt.capitales.common.CommonEnum;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class Game2048 {
     }
 
     // METHODES PUBLIQUES
-    public void onMouvement(commonEnum.Direction ai_direction) {
+    public void onMouvement(CommonEnum.Direction ai_direction) {
         // Algo de reference ecrit pour un decalage vers le haut
         // la fonction _translateMvtIJ permet de changer d'indice pour les 3 autres directions
         Log.d(TAG,"appel de onMouvement");
@@ -129,7 +129,7 @@ public class Game2048 {
 
 
     // METHODES PRIVEES
-    private int _translateMvtIJ(commonEnum.Direction direction, int i, int j) {
+    private int _translateMvtIJ(CommonEnum.Direction direction, int i, int j) {
         switch (direction)  {
             case UP: // Cas de reference
                 return i+ C_CASES_X *j;

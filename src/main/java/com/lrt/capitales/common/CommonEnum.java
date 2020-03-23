@@ -1,6 +1,8 @@
-package com.lrt.capitales.Common;
+package com.lrt.capitales.common;
 
-public class commonEnum {
+public class CommonEnum {
+    public enum  Type { TROU, DEPART, ARRIVEE };
+
     public enum Direction{
         UP,
         DOWN,

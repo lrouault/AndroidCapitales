@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lrt.capitales.Controller.MapActivity">
+    tools:context="com.lrt.capitales.controller.MapActivity">
 
     <Button
         android:id="@+id/activity_map_ville"
@@ -21,7 +21,7 @@
         android:layout_alignParentTop="true"/>
 
 
-    <com.lrt.capitales.View.PinView
+    <com.lrt.capitales.view.PinView
         android:id="@+id/activity_map_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,4 +1,4 @@
-package com.lrt.capitales.Model;
+package com.lrt.capitales.model.capitales;
 
 /**
  * Created by lrouault on 26/02/2018.

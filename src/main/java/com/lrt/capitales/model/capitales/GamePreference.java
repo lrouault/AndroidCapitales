@@ -1,4 +1,4 @@
-package com.lrt.capitales.Model;
+package com.lrt.capitales.model.capitales;
 
 import java.io.Serializable;
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lrt.capitales.Controller.MainActivity">
+    tools:context="com.lrt.capitales.controller.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -178,5 +178,12 @@
         android:layout_gravity="center"
         android:text="2048" />
 
+    <Button
+        android:id="@+id/activity_main_labyrinthe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="LABYRINTHE" />
 
 </LinearLayout>

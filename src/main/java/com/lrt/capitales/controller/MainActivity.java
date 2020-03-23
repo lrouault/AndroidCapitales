@@ -1,6 +1,5 @@
-package com.lrt.capitales.Controller;
+package com.lrt.capitales.controller;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,13 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.ListView;
 
-import com.lrt.capitales.Model.GamePreference;
+import com.lrt.capitales.model.capitales.GamePreference;
 import com.lrt.capitales.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mMainCapitales;
     private Button mMainPositions;
     private Button mMain2048;
+    private Button mMainLabyrinthe;
 
     private CheckedTextView mMainAfrique;
     private CheckedTextView mMainAmerique;
@@ -49,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mMainCapitales = findViewById(R.id.activity_main_capitales);
         mMainPositions = findViewById(R.id.activity_main_positions);
         mMain2048 = findViewById(R.id.activity_main_2048);
+        mMainLabyrinthe = findViewById(R.id.activity_main_labyrinthe);
         mMainAfrique = findViewById(R.id.activity_main_afrique);
         mMainAmerique =  findViewById(R.id.activity_main_amerique);
         mMainAsie = findViewById(R.id.activity_main_asie);
@@ -212,7 +211,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent w_2048Activity = new Intent(MainActivity.this, C2048Activity.class);
                 startActivity(w_2048Activity);
+            }
+        });
 
+
+        mMainLabyrinthe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent w_labyrinthe = new Intent(MainActivity.this, LabyrintheActivity.class);
+                startActivity(w_labyrinthe);
             }
         });
 

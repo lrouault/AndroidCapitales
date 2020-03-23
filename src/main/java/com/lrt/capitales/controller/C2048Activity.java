@@ -1,4 +1,4 @@
-package com.lrt.capitales.Controller;
+package com.lrt.capitales.controller;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lrt.capitales.Model.Game2048;
+import com.lrt.capitales.model.Game2048;
 import com.lrt.capitales.R;
-import com.lrt.capitales.View.OnSwipeListener;
-import com.lrt.capitales.Common.commonEnum;
+import com.lrt.capitales.view.OnSwipeListener;
+import com.lrt.capitales.common.CommonEnum;
 
 import java.util.StringTokenizer;
 
@@ -103,11 +103,10 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
         w_2048blocsLayout.setOnTouchListener(this);
         m_gestureDetector = new GestureDetector(this, new OnSwipeListener() {
             @Override
-            public boolean onSwipe(commonEnum.Direction direction) {
+            public boolean onSwipe(CommonEnum.Direction direction) {
                 Log.d(TAG, "appel de Overriden on swipe");
                 m_Game2048.onMouvement(direction);
                 _majAffichage();
-                _majSavedPlateau();
                 return true;
             }
         }); /// END gestureDetector
@@ -120,7 +119,6 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
                 m_Game2048.restart();
                 m_Game2048.creationBloc();
                 _majAffichage();
-                _majSavedPlateau();
             }
         });
 
@@ -131,9 +129,14 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
             public void onClick(View v) {
                 m_Game2048.undo();
                 _majAffichage();
-                _majSavedPlateau();
             }
         });
+    } // END onCreate()
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        _majSavedPlateau();
     }
 
     // Gestion des mouvements tactiles

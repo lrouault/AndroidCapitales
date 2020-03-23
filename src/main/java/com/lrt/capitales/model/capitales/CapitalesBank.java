@@ -1,4 +1,4 @@
-package com.lrt.capitales.Model;
+package com.lrt.capitales.model.capitales;
 
 import android.content.Context;
 
