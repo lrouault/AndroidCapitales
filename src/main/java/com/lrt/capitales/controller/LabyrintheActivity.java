@@ -7,12 +7,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.lrt.capitales.model.labyrinthe.Bloc;
 import com.lrt.capitales.model.labyrinthe.Boule;
 import com.lrt.capitales.view.LabyrintheView;
 
 public class LabyrintheActivity extends Activity {
+    private static final String TAG = "LabyrintheActivity"; // pour les logs
+
     // Identifiant de la boîte de dialogue de victoire
     public static final int VICTORY_DIALOG = 0;
     // Identifiant de la boîte de dialogue de défaite
@@ -25,6 +28,7 @@ public class LabyrintheActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "appel de onCreate");
         super.onCreate(savedInstanceState);
 
         mView = new LabyrintheView(this);
@@ -36,24 +40,34 @@ public class LabyrintheActivity extends Activity {
         mView.setBoule(b);
         mEngine.setBoule(b);
 
-        List<Bloc> mList = mEngine.buildLabyrinthe();
+        // Attente de la creation de la vue pour obtenir ses dimensions
+        // -> onDimensionSet
+    }
+
+    public void onDimensionSet() {
+        Log.d(TAG, "appel de onDimensionSet");
+        //List<Bloc> mList = mEngine.buildLabyrinthe(mView.getWidth(), mView.getHeight());
+        List<Bloc> mList = mEngine.lectureFichier(mView.getWidth(), mView.getHeight());
         mView.setBlocks(mList);
     }
 
     @Override
     protected void onResume() {
+        Log.d(TAG, "appel de onResume");
         super.onResume();
         mEngine.resume();
     }
 
     @Override
     protected void onPause() {
+        Log.d(TAG, "appel de onPause");
         super.onStop();
         mEngine.stop();
     }
 
     @Override
     public Dialog onCreateDialog (int id) {
+        Log.d(TAG, "appel de onCreateDialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch(id) {
             case VICTORY_DIALOG:
@@ -110,6 +124,7 @@ public class LabyrintheActivity extends Activity {
 
     @Override
     public void onPrepareDialog (int id, Dialog box) {
+        Log.d(TAG, "appel de onPrepareDialog");
         // A chaque fois qu'une boîte de dialogue est lancée, on arrête le moteur physique
         mEngine.stop();
     }

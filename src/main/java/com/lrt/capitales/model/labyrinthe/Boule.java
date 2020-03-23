@@ -2,8 +2,12 @@ package com.lrt.capitales.model.labyrinthe;
 
 import android.graphics.Color;
 import android.graphics.RectF;
+import android.util.Log;
+
+import com.lrt.capitales.common.CommonEnum.Direction;
 
 public class Boule {
+    private static final String TAG = "Boule"; // pour les logs
     // Rayon de la boule
     public static final int RAYON = 30;
 
@@ -20,16 +24,21 @@ public class Boule {
     private static final float COMPENSATEUR = 8.0f;
 
     // Utilisé pour compenser les rebonds
-    private static final float REBOND = 1.75f;
+    private static final float REBOND = 1.25f;
+
+    // Utilisé pour compenser les rebonds
+    private static final float ACCELERATION = 2.f;
 
     // Le rectangle qui correspond à la position de départ de la boule
     private RectF mInitialRectangle = null;
 
     // A partir du rectangle initial on détermine la position de la boule
     public void setInitialRectangle(RectF pInitialRectangle) {
+        Log.d(TAG, "appel de setInitialRectangle");
         this.mInitialRectangle = pInitialRectangle;
-        this.mX = pInitialRectangle.left + RAYON;
-        this.mY = pInitialRectangle.top + RAYON;
+        this.mX = pInitialRectangle.centerX();
+        this.mY = pInitialRectangle.centerY();
+        Log.d(TAG, "-- (mx,my) -> "+(int) mY+" , "+(int) mX);
     }
 
     // Le rectangle de collision
@@ -115,8 +124,8 @@ public class Boule {
         if(mSpeedY < -MAX_SPEED)
             mSpeedY = -MAX_SPEED;
 
-        setPosX(mX + mSpeedY);
-        setPosY(mY + mSpeedX);
+        setPosX(mX + mSpeedX);
+        setPosY(mY + mSpeedY);
 
         // Met à jour les coordonnées du rectangle de collision
         mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
@@ -126,9 +135,76 @@ public class Boule {
 
     // Remet la boule à sa position de départ
     public void reset() {
+        Log.d(TAG, "appel de reset");
         mSpeedX = 0;
         mSpeedY = 0;
         this.mX = mInitialRectangle.left + RAYON;
         this.mY = mInitialRectangle.top + RAYON;
+        Log.d(TAG, "-- (mx,my) -> "+(int) mY+" , "+(int) mX);
+    }
+
+    public void rebond(Direction ai_dir, float ai_pos) {
+        switch (ai_dir) {
+            case UP :
+                mY = ai_pos + RAYON;
+                mSpeedY = -mSpeedY / REBOND;
+                break;
+            case DOWN:
+                mY = ai_pos - RAYON;
+                mSpeedY = -mSpeedY / REBOND;
+                break;
+            case LEFT :
+                mX = ai_pos + RAYON;
+                mSpeedX = -mSpeedX / REBOND;
+                break;
+            case RIGHT:
+                mX = ai_pos - RAYON;
+                mSpeedX = -mSpeedX / REBOND;
+                break;
+        }
+        // Mise a jour les coordonnées du rectangle de collision
+        mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
+    }
+
+    public void mur(Direction ai_dir, float ai_pos) {
+        switch (ai_dir) {
+            case UP :
+                mY = ai_pos + RAYON + 1;
+                mSpeedY = 0;
+                break;
+            case DOWN:
+                mY = ai_pos - RAYON - 1;
+                mSpeedY = 0;
+                break;
+            case LEFT :
+                mX = ai_pos + RAYON + 1;
+                mSpeedX = 0;
+                break;
+            case RIGHT:
+                mX = ai_pos - RAYON - 1;
+                mSpeedX = 0;
+                break;
+        }
+        // Mise a jour les coordonnées du rectangle de collision
+        mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
+    }
+
+    public void accelerateur(Direction ai_dir) {
+        switch (ai_dir) {
+            case UP :
+                mSpeedX -= ACCELERATION;
+                break;
+            case DOWN:
+                mSpeedX += ACCELERATION;
+                break;
+            case LEFT :
+                mSpeedY -= ACCELERATION;
+                break;
+            case RIGHT:
+                mSpeedY += ACCELERATION;
+                break;
+        }
+        // Mise a jour les coordonnées du rectangle de collision
+        mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
     }
 }
