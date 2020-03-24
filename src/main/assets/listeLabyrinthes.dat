@@ -1,3 +1,21 @@
+// Labyrinthe d'exemple
+#
+mmmmmmmmmmmmmmmmm
+m d             m
+mmmmmmmmmmmm    m
+m a             m
+mmmmmmmmmmmmmmmmm
+#
+#
+ttttttttttttttttt
+t d             t
+tttttttttttt    t
+t a             t
+ttttttttttttttttt
+#
+
+// Labyrinthe deux
+#
 mmmmmootttttt
 m   m  t    t      
 m d m  t    t      
@@ -12,3 +30,4 @@ m      m           o
 m      ma          o
 m      m           o
 mmmmmmmmoooooooooooo
+#

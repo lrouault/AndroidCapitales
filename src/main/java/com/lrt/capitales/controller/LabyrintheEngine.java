@@ -43,6 +43,9 @@ public class LabyrintheEngine {
     private SensorManager mManager = null;
     private Sensor mAccelerometre = null;
 
+    private float m_screenWidth = -1;
+    private float m_screenHeight = -1;
+
     SensorEventListener mSensorEventListener = new SensorEventListener() {
 
         @Override
@@ -56,7 +59,10 @@ public class LabyrintheEngine {
 
                 // Pour tous les blocs du labyrinthe
                 Log.d(TAG, "-- calcul intersections");
+                // Pour le moment, tous les blocs font la meme taille
                 if(mBlocks != null) {
+                    float w_blocWidth = mBlocks.get(0).getRectangle().width();
+                    float w_blocHeight = mBlocks.get(0).getRectangle().height();
                     for (Bloc block : mBlocks) {
                         // On crée un nouveau rectangle pour ne pas modifier celui du bloc
                         RectF inter = new RectF(block.getRectangle());
@@ -64,49 +70,58 @@ public class LabyrintheEngine {
                             // On recherche d'ou vient la collision
                             // pour trouver la position du "mur" le plus proche
                             float w_positionMur = 0.f;
-                            Direction w_directionContact = Direction.fromPoints(hitBox.centerX(),hitBox.centerY(),block.getRectangle().centerX(),block.getRectangle().centerY());
+                            // Permet de s'assurer que l'on rencontre bien le bon bloc
+                            // /!\ Rouler contre un mur horizontal entrainait des collisions gauche droite
+                            boolean isTrueCollision = false;
+                            Direction w_directionContact = Direction.fromPoints(hitBox.centerX(), hitBox.centerY(), block.getRectangle().centerX(), block.getRectangle().centerY());
                             switch (w_directionContact) {
                                 case UP:
                                     w_positionMur = block.getRectangle().bottom;
+                                    if(inter.width() > Math.min(mBoule.RAYON/2, w_blocWidth/4)) {isTrueCollision = true;}
                                     break;
                                 case DOWN:
                                     w_positionMur = block.getRectangle().top;
+                                    if(inter.width() > Math.min(mBoule.RAYON/2, w_blocWidth/4)) {isTrueCollision = true;}
                                     break;
                                 case LEFT:
+                                    Log.d(TAG, "contact gauche aire inter : " + inter.width() +","+ inter.height());
                                     w_positionMur = block.getRectangle().right;
+                                    if(inter.height() > Math.min(mBoule.RAYON/2, w_blocHeight/4)) {isTrueCollision = true;}
                                     break;
                                 case RIGHT:
+                                    Log.d(TAG, "contact droit aire inter : " + inter.width() +","+ inter.height());
                                     w_positionMur = block.getRectangle().left;
+                                    if(inter.height() > Math.min(mBoule.RAYON/2, w_blocHeight/4)) {isTrueCollision = true;}
                                     break;
                             }
-                            // On agit différement en fonction du type de bloc
-                            switch (block.getType()) {
-                                case TROU:
-                                    mActivity.showDialog(LabyrintheActivity.DEFEAT_DIALOG);
-                                    break;
+                            if(isTrueCollision) {
+                                // On agit différement en fonction du type de bloc
+                                switch (block.getType()) {
+                                    case TROU:
+                                        mActivity.showDialog(LabyrintheActivity.DEFEAT_DIALOG);
+                                        break;
 
-                                case DEPART:
-                                    break;
+                                    case DEPART:
+                                        break;
 
-                                case ARRIVEE:
-                                    mActivity.showDialog(LabyrintheActivity.VICTORY_DIALOG);
-                                    break;
+                                    case ARRIVEE:
+                                        mActivity.showDialog(LabyrintheActivity.VICTORY_DIALOG);
+                                        break;
 
-                                case MUR:
-                                    mBoule.mur(w_directionContact,w_positionMur);
-                                    break;
+                                    case MUR:
+                                        mBoule.mur(w_directionContact, w_positionMur);
+                                        break;
 
-                                case TRAMPO:
-                                    mBoule.rebond(w_directionContact,w_positionMur);
-                                    break;
+                                    case TRAMPO:
+                                        mBoule.rebond(w_directionContact, w_positionMur);
+                                        break;
 
-                                case SPEED_H:
-                                    mBoule.accelerateur(w_directionContact);
-                                    break;
-
-
+                                    case SPEED_H:
+                                        mBoule.accelerateur(w_directionContact);
+                                        break;
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
@@ -145,7 +160,9 @@ public class LabyrintheEngine {
     }
 
     // Construit le labyrinthe
-    public List<Bloc> lectureFichier(float ai_width, float ai_height) {
+    public List<Bloc> lectureFichier() {
+        // TODO lecture du nombre de colonnes lignes
+        // TODO Stockage de plusieurs niveaux
         Log.d(TAG, "appel de lectureFichier");
         InputStreamReader w_input = null;
         BufferedReader w_reader = null;
@@ -153,10 +170,8 @@ public class LabyrintheEngine {
         mBlocks = new ArrayList<Bloc>();
 
 
-        float w_rectWidth = ai_width/(19+1);
-        float w_rectHeight = ai_height/(13+1);
-        Log.d(TAG, "-- w_rectWidth (screen) "+w_rectWidth+" ("+ai_width+")");
-        Log.d(TAG, "-- w_rectHeight (screen) : "+w_rectHeight+" ("+ai_height+")");
+        float w_rectWidth = m_screenWidth/(19+1);
+        float w_rectHeight = m_screenHeight/(13+1);
 
         try {
             w_input = new InputStreamReader(mActivity.getBaseContext().getAssets().open("listeLabyrinthes.dat"), Charset.forName("UTF-8"));
@@ -182,6 +197,10 @@ public class LabyrintheEngine {
                     w_bloc = new Bloc(Type.MUR, i, j, w_rectWidth, w_rectHeight);
                 else if(character == 't')
                     w_bloc = new Bloc(Type.TRAMPO, i, j, w_rectWidth, w_rectHeight);
+                else if(character == '/') {
+                    w_reader.readLine();
+                    i = -1;
+                }
                 else if (character == '\n') {
                     // Si le caractère est un retour à la ligne, on retourne avant la première colonne
                     // Car on aura i++ juste après, ainsi i vaudra 0, la première colonne !
@@ -224,6 +243,23 @@ public class LabyrintheEngine {
             }
         }
         return mBlocks;
+    }
+
+    // GETTER AND SETTER
+
+    public void setScreenWidthHeight(float m_screenWidth, float m_screenHeight) {
+        this.m_screenWidth = m_screenWidth;
+        this.m_screenHeight = m_screenHeight;
+    }
+
+    public void setBlocks(List<Bloc> pBlocks) {
+        this.mBlocks = pBlocks;
+        for (Bloc block : pBlocks) {
+            if(block.getType() == Type.DEPART) {
+                mBoule.setInitialRectangle(new RectF(block.getRectangle()));
+                break;
+            }
+        }
     }
 }
 

@@ -25,6 +25,7 @@ public class Boule {
 
     // Utilisé pour compenser les rebonds
     private static final float REBOND = 1.25f;
+    private static final float REBOND_MUR = 10f;
 
     // Utilisé pour compenser les rebonds
     private static final float ACCELERATION = 2.f;
@@ -170,19 +171,19 @@ public class Boule {
         switch (ai_dir) {
             case UP :
                 mY = ai_pos + RAYON + 1;
-                mSpeedY = 0;
+                mSpeedY = -mSpeedY /REBOND_MUR;
                 break;
             case DOWN:
                 mY = ai_pos - RAYON - 1;
-                mSpeedY = 0;
+                mSpeedY = -mSpeedY /REBOND_MUR;
                 break;
             case LEFT :
                 mX = ai_pos + RAYON + 1;
-                mSpeedX = 0;
+                mSpeedX = -mSpeedX /REBOND_MUR;
                 break;
             case RIGHT:
                 mX = ai_pos - RAYON - 1;
-                mSpeedX = 0;
+                mSpeedX = -mSpeedX /REBOND_MUR;
                 break;
         }
         // Mise a jour les coordonnées du rectangle de collision

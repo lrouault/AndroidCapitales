@@ -7,11 +7,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.LongDef;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.lrt.capitales.model.labyrinthe.Bloc;
 import com.lrt.capitales.model.labyrinthe.Boule;
+import com.lrt.capitales.model.labyrinthe.LabyrintheBank;
 import com.lrt.capitales.view.LabyrintheView;
+
+// TODO niveaux de difficulté en changeant les vitesses de detection / rebond
 
 public class LabyrintheActivity extends Activity {
     private static final String TAG = "LabyrintheActivity"; // pour les logs
@@ -25,16 +30,23 @@ public class LabyrintheActivity extends Activity {
     private LabyrintheView mView = null;
     // Le moteur physique du jeu
     private LabyrintheEngine mEngine = null;
+    // La base de donnees de niveaux
+    private LabyrintheBank m_bank = null;
+    private int m_indexLabyrinthe = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "appel de onCreate");
         super.onCreate(savedInstanceState);
 
+        // L'ecran ne passe pas en veille
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         mView = new LabyrintheView(this);
         setContentView(mView);
 
         mEngine = new LabyrintheEngine(this);
+        m_bank = new LabyrintheBank();
 
         Boule b = new Boule();
         mView.setBoule(b);
@@ -47,8 +59,10 @@ public class LabyrintheActivity extends Activity {
     public void onDimensionSet() {
         Log.d(TAG, "appel de onDimensionSet");
         //List<Bloc> mList = mEngine.buildLabyrinthe(mView.getWidth(), mView.getHeight());
-        List<Bloc> mList = mEngine.lectureFichier(mView.getWidth(), mView.getHeight());
-        mView.setBlocks(mList);
+        m_bank.setScreenWidthHeight(mView.getWidth(), mView.getHeight());
+        //List<Bloc> mList = mEngine.lectureFichier();
+        m_bank.lectureFichier(getBaseContext().getAssets());
+        _setNextLabyrinthe();
     }
 
     @Override
@@ -74,9 +88,10 @@ public class LabyrintheActivity extends Activity {
                 builder.setCancelable(false)
                         .setMessage("Bravo, vous avez gagné !")
                         .setTitle("Champion ! ")
-                        .setNegativeButton("Recommencer", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Continuer", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                _setNextLabyrinthe();
                                 mEngine.reset();
                                 mEngine.resume();
                             }
@@ -127,5 +142,17 @@ public class LabyrintheActivity extends Activity {
         Log.d(TAG, "appel de onPrepareDialog");
         // A chaque fois qu'une boîte de dialogue est lancée, on arrête le moteur physique
         mEngine.stop();
+    }
+
+    private void _setNextLabyrinthe() {
+        if (m_indexLabyrinthe+1 < m_bank.getM_listeDeLabyrinthe().size()) {
+            m_indexLabyrinthe++;
+        } else {
+            m_indexLabyrinthe =0;
+        }
+        Log.d(TAG, "_setNextLabyrinthe: lecture "+m_indexLabyrinthe+" / "+m_bank.getM_listeDeLabyrinthe().size());
+        List<Bloc> mList = m_bank.getM_listeDeLabyrinthe().get(m_indexLabyrinthe);
+        mEngine.setBlocks(mList);
+        mView.setBlocks(mList);
     }
 }
