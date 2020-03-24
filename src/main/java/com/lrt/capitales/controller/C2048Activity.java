@@ -1,15 +1,23 @@
 package com.lrt.capitales.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lrt.capitales.model.Game2048;
 import com.lrt.capitales.R;
@@ -134,6 +142,28 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
     } // END onCreate()
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_2048option, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+
+            case R.id.menu_2048optionUndo:
+                _showDialogUndo();
+                break;
+
+            case R.id.menu_2048optionFreq4:
+                _showDialogFreq4();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
     protected void onStop() {
         super.onStop();
         _majSavedPlateau();
@@ -144,6 +174,87 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
     public boolean onTouch(View v, MotionEvent event) {
         m_gestureDetector.onTouchEvent(event);
         return true;
+    }
+
+    private void _showDialogUndo() {
+        final TextView w_text=new TextView(this);
+        w_text.setPadding(10, 10, 10, 10);
+
+        final SeekBar w_seek=new SeekBar(this);
+        w_seek.setMax(m_Game2048.C_UNDO_MAX);
+        w_seek.setProgress(m_Game2048.getM_nbUndoMax());
+        w_text.setText("Apres validation : " + m_Game2048.getM_nbUndoMax()+" (defaut : 3)");
+        w_seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                w_text.setText("Apres validation : " + progress+" (defaut : 3)");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        final AlertDialog.Builder w_alert = new AlertDialog.Builder(this);
+        LinearLayout w_linear=new LinearLayout(this);
+        w_linear.setOrientation(LinearLayout.VERTICAL);
+        w_linear.addView(w_seek);
+        w_linear.addView(w_text);
+
+        w_alert.setTitle("Nombre maximum de undo");
+        w_alert.setView(w_linear);
+
+        w_alert.setPositiveButton("Ok",new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog,int id)
+            {
+                m_Game2048.setM_nbUndoMax(w_seek.getProgress());
+                _majAffichage(); // maj du bouton undo
+            }
+        });
+        w_alert.show();
+    }
+
+    private void _showDialogFreq4() {
+        final TextView w_text=new TextView(this);
+        w_text.setPadding(10, 10, 10, 10);
+
+        final SeekBar w_seek=new SeekBar(this);
+        w_seek.setMax(9);
+        w_seek.setProgress(m_Game2048.getM_freq4());
+        w_text.setText("Apres validation  1 sur "+ m_Game2048.getM_freq4()+" (defaut : 1/4)");
+        w_seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                w_text.setText("Apres validation 1 sur "+ (progress+1)+" (defaut : 1/4)");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        final AlertDialog.Builder w_alert = new AlertDialog.Builder(this);
+        LinearLayout w_linear=new LinearLayout(this);
+        w_linear.setOrientation(LinearLayout.VERTICAL);
+        w_linear.addView(w_seek);
+        w_linear.addView(w_text);
+
+        w_alert.setTitle("Frequence d'appartition du 4");
+        w_alert.setView(w_linear);
+
+        w_alert.setPositiveButton("Ok",new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog,int id)
+            {
+                m_Game2048.setM_freq4(w_seek.getProgress()+1);
+            }
+        });
+        w_alert.show();
     }
 
     // Recuperation des infos du model pour l'affichage
@@ -163,10 +274,12 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
             }
         }
         // Undo
-        if (m_Game2048.isM_enableUndo()){
+        if (m_Game2048.getM_nbEnableUndo() > 0) {
+            m_btnUndo.setText("Undo ("+m_Game2048.getM_nbEnableUndo()+")");
             m_btnUndo.setTextColor(getResources().getColor(R.color.txt2048_OK));
             m_btnUndo.setEnabled(true);
         } else {
+            m_btnUndo.setText("Undo");
             m_btnUndo.setTextColor(getResources().getColor(R.color.txt2048_KO));
             m_btnUndo.setEnabled(false);
         }

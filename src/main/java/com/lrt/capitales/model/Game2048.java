@@ -15,14 +15,23 @@ import static java.lang.Math.pow;
 
 public class Game2048 {
     private static final String TAG = "Game2048"; // pour les logs
-    private static final int C_CASES_X = 4;
-    private static final int C_CASES_Y = 4;
+    public static final int C_CASES_X = 4;
+    public static final int C_CASES_Y = 4;
+    public static final int C_DEFAULT_FREQ4 = 4;
+    public static final int C_UNDO_MAX = 3;
+
+    // Options du jeu
+    private int m_nbUndoMax = C_UNDO_MAX;
+    private int m_nbEnableUndo = 0;
+    private int m_freq4 = C_DEFAULT_FREQ4;
 
     private int m_score = 0;
     private int m_bestScore;
     private int[] m_plateau = new int[]{0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
     private int[] m_plateauPrevious = Arrays.copyOf(m_plateau, m_plateau.length);
-    private boolean m_enableUndo = false;
+    private int[] m_plateauPrevious2 = Arrays.copyOf(m_plateau, m_plateau.length);
+    private int[] m_plateauPrevious3 = Arrays.copyOf(m_plateau, m_plateau.length);
+
 
     public Game2048(int ai_bestScore) {
         Log.d(TAG, "appel du constructeur par defaut");
@@ -75,8 +84,10 @@ public class Game2048 {
             }
         }
         if (w_hadModif) {
+            m_plateauPrevious3 =m_plateauPrevious2;
+            m_plateauPrevious2 = m_plateauPrevious;
             m_plateauPrevious = w_plateauCopy;
-            m_enableUndo = true;
+            if (m_nbEnableUndo < m_nbUndoMax) { m_nbEnableUndo +=1;}
             creationBloc();
             _majScore();
         }
@@ -104,8 +115,8 @@ public class Game2048 {
                         w_countVide++;
                     }
                     if (w_countVide == newPosition) {
-                        int w_random5 = w_r.nextInt(4); // proba de 25%
-                        if (w_random5==3) {m_plateau[i + C_CASES_X *j] = 2;}
+                        int w_random5 = w_r.nextInt(m_freq4);
+                        if (w_random5==0) {m_plateau[i + C_CASES_X *j] = 2;}
                         else {m_plateau[i + C_CASES_X *j] = 1;}
                         w_countVide++;
                     }
@@ -122,8 +133,12 @@ public class Game2048 {
 
     public void undo() {
         Log.d(TAG,"appel de undo");
-        m_enableUndo = false;
-        m_plateau = m_plateauPrevious;
+        if (m_nbEnableUndo >0) {
+            m_nbEnableUndo -= 1;
+            m_plateau = m_plateauPrevious;
+            m_plateauPrevious = m_plateauPrevious2;
+            m_plateauPrevious2 = m_plateauPrevious3;
+        }
         _majScore();
     }
 
@@ -156,6 +171,16 @@ public class Game2048 {
 
 
     // GETTER AND SETTER
+
+
+    public int getM_freq4() {
+        return m_freq4;
+    }
+
+    public void setM_freq4(int m_freq4) {
+        this.m_freq4 = m_freq4;
+    }
+
     public int getM_score() {
         return m_score;
     }
@@ -176,7 +201,16 @@ public class Game2048 {
         return m_plateauPrevious;
     }
 
-    public boolean isM_enableUndo() {
-        return m_enableUndo;
+    public int getM_nbEnableUndo() {
+        return m_nbEnableUndo;
+    }
+
+    public int getM_nbUndoMax() {
+        return m_nbUndoMax;
+    }
+
+    public void setM_nbUndoMax(int m_nbUndoMax) {
+        this.m_nbUndoMax = m_nbUndoMax;
+        if (m_nbEnableUndo > m_nbUndoMax) {m_nbEnableUndo = m_nbUndoMax;}
     }
 }
