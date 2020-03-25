@@ -62,7 +62,6 @@ public class LabyrintheNiveauxActivity extends AppCompatActivity {
             }
         });
 
-
         m_bank = new LabyrintheBank();
         m_bank.lectureFichier(getBaseContext().getAssets());
         m_seekBar = findViewById(R.id.activity_labyrintheSeekBar);
