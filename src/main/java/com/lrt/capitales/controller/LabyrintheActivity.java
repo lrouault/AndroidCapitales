@@ -33,11 +33,16 @@ public class LabyrintheActivity extends Activity {
     // La base de donnees de niveaux
     private LabyrintheBank m_bank = null;
     private int m_indexLabyrinthe = -1;
+    private int m_difficulte = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "appel de onCreate");
         super.onCreate(savedInstanceState);
+
+        // Récupération des infos de niveau
+        m_difficulte = (int)(getIntent().getSerializableExtra("Difficulte"));
+        m_indexLabyrinthe  = (int) getIntent().getSerializableExtra("Niveau")-1;
 
         // L'ecran ne passe pas en veille
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -51,6 +56,7 @@ public class LabyrintheActivity extends Activity {
         Boule b = new Boule();
         mView.setBoule(b);
         mEngine.setBoule(b);
+        mEngine.setDifficulty(m_difficulte);
 
         // Attente de la creation de la vue pour obtenir ses dimensions
         // -> onDimensionSet

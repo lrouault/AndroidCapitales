@@ -221,8 +221,8 @@ public class MainActivity extends AppCompatActivity {
         w_mainLabyrinthe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent w_labyrinthe = new Intent(MainActivity.this, LabyrintheActivity.class);
-                startActivity(w_labyrinthe);
+                Intent w_labyrintheNiveaux = new Intent(MainActivity.this, LabyrintheNiveauxActivity.class);
+                startActivity(w_labyrintheNiveaux);
             }
         });
 

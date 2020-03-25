@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lrt.capitales.controller.LabyrintheNiveauxActivity"
+    android:layout_margin="10dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginVertical="5dp"
+        android:text="Difficuté ?" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckedTextView
+            android:id="@+id/activity_labyrintheDiff_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorSingle"
+            android:checked="true"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            android:text="Facile" />
+
+        <CheckedTextView
+            android:id="@+id/activity_labyrintheDiff_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorSingle"
+            android:checked="false"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            android:text="Normal" />
+
+        <CheckedTextView
+            android:id="@+id/activity_labyrintheDiff_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@android:color/holo_blue_light"
+            android:checkMark="?android:listChoiceIndicatorSingle"
+            android:checked="false"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp"
+            android:text="Expert" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Quel niveau ?" />
+
+    <SeekBar
+        android:id="@+id/activity_labyrintheSeekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="0"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/activity_labyrintheGO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="GO !" />
+
+</LinearLayout>

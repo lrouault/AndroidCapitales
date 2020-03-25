@@ -8,6 +8,9 @@ import com.lrt.capitales.common.CommonEnum.Direction;
 
 public class Boule {
     private static final String TAG = "Boule"; // pour les logs
+    private static final int FACILE = 1;
+    private static final int NORMAL = 2;
+    private static final int EXPERT = 3;
     // Rayon de la boule
     public static final int RAYON = 30;
 
@@ -18,17 +21,17 @@ public class Boule {
     }
 
     // Vitesse maximale autorisée pour la boule
-    private static final float MAX_SPEED = 20.0f;
+    private static float MAX_SPEED = 20.0f;
 
     // Permet à la boule d'accélérer moins vite
-    private static final float COMPENSATEUR = 8.0f;
+    private static float COMPENSATEUR = 8.0f;
 
     // Utilisé pour compenser les rebonds
-    private static final float REBOND = 1.25f;
-    private static final float REBOND_MUR = 10f;
+    private static float REBOND = 1.25f;
+    private static float REBOND_MUR = 10f;
 
     // Utilisé pour compenser les rebonds
-    private static final float ACCELERATION = 0.1f;
+    private static float ACCELERATION = 0.1f;
 
     // Le rectangle qui correspond à la position de départ de la boule
     private RectF mInitialRectangle = null;
@@ -53,14 +56,14 @@ public class Boule {
     public void setPosX(float pPosX) {
         mX = pPosX;
 
-        // Si la boule sort du cadre, on rebondit
-        if(mX < RAYON) {
-            mX = RAYON;
+        // Si la boule sort du cadre, on traverse
+        if(mX < 0) {
+            mX += mWidth;
             // Rebondir, c'est changer la direction de la balle
-            mSpeedY = -mSpeedY / REBOND;
-        } else if(mX > mWidth - RAYON) {
-            mX = mWidth - RAYON;
-            mSpeedY = -mSpeedY / REBOND;
+            //mSpeedY = -mSpeedY / REBOND;
+        } else if(mX > mWidth) {
+            mX -= mWidth;
+            //mSpeedY = -mSpeedY / REBOND;
         }
     }
 
@@ -72,12 +75,10 @@ public class Boule {
 
     public void setPosY(float pPosY) {
         mY = pPosY;
-        if(mY < RAYON) {
-            mY = RAYON;
-            mSpeedX = -mSpeedX / REBOND;
+        if(mY < 0) {
+            mY += mHeight;
         } else if(mY > mHeight - RAYON) {
-            mY = mHeight - RAYON;
-            mSpeedX = -mSpeedX / REBOND;
+            mY -= mHeight;
         }
     }
 
@@ -199,5 +200,29 @@ public class Boule {
         if (mSpeedX >  MAX_SPEED) mSpeedX =  MAX_SPEED;
         if (mSpeedY < -MAX_SPEED) mSpeedY = -MAX_SPEED;
         if (mSpeedY >  MAX_SPEED) mSpeedY =  MAX_SPEED;
+    }
+
+    public void setDifficulty(int ai_diff) {
+        Log.d(TAG, "setDifficulty: "+ai_diff);
+        switch (ai_diff) {
+            case FACILE :
+                COMPENSATEUR = 12;
+                MAX_SPEED = 15;
+                REBOND = 1.5f;
+                REBOND_MUR = 10;
+                ACCELERATION = 0.05f;
+            case NORMAL :
+                COMPENSATEUR = 8;
+                MAX_SPEED = 20;
+                REBOND = 1.25f;
+                REBOND_MUR = 5;
+                ACCELERATION = 0.1f;
+            case EXPERT :
+                COMPENSATEUR = 4;
+                MAX_SPEED = 25;
+                REBOND = 0.75f;
+                REBOND_MUR = 2;
+                ACCELERATION = 0.3f;
+        }
     }
 }

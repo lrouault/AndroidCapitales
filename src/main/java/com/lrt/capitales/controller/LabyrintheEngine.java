@@ -173,5 +173,9 @@ class LabyrintheEngine {
             }
         }
     }
+
+    void setDifficulty(int ai_diff) {
+        mBoule.setDifficulty(ai_diff);
+    }
 }
 

@@ -38,10 +38,6 @@ public class LabyrintheBank {
         int w_maxColonne = 0;
         int w_maxLigne = 0;
 
-
-        float w_rectWidth = m_screenWidth/(19+1);
-        float w_rectHeight = m_screenHeight/(13+1);
-
         try {
             w_input = new InputStreamReader(ai_asset.open("listeLabyrinthes.dat"), StandardCharsets.UTF_8);
             w_reader = new BufferedReader(w_input);
@@ -56,23 +52,23 @@ public class LabyrintheBank {
             while((c = w_reader.read()) != -1) {
                 char character = (char) c;
                 if(character == 'o')
-                    w_bloc = new Bloc(CommonEnum.Type.TROU, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.TROU, i, j);
                 else if(character == 'D') {
-                    w_bloc = new Bloc(CommonEnum.Type.DEPART, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.DEPART, i, j);
                 } else if(character == 'A')
-                    w_bloc = new Bloc(CommonEnum.Type.ARRIVEE, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.ARRIVEE, i, j);
                 else if(character == 'm')
-                    w_bloc = new Bloc(CommonEnum.Type.MUR, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.MUR, i, j);
                 else if(character == 't')
-                    w_bloc = new Bloc(CommonEnum.Type.TRAMPO, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.TRAMPO, i, j);
                 else if(character == 'h')
-                    w_bloc = new Bloc(CommonEnum.Type.SPEED_H, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_H, i, j);
                 else if(character == 'b')
-                    w_bloc = new Bloc(CommonEnum.Type.SPEED_B, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_B, i, j);
                 else if(character == 'g')
-                    w_bloc = new Bloc(CommonEnum.Type.SPEED_G, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_G, i, j);
                 else if(character == 'd')
-                    w_bloc = new Bloc(CommonEnum.Type.SPEED_D, i, j, w_rectWidth, w_rectHeight);
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_D, i, j);
                 else if(character == '/') {
                     // Ligne de commentaire
                     w_reader.readLine();
