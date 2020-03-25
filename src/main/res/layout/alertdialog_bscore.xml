@@ -1,0 +1,326 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="0,1,2,3"
+    android:gravity="center">
+
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" Niveau "
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" 1 "
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" 2 "
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_column="2"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" 3 "
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_column="3"
+            />
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Monde"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore11"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore12"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore13"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Afrique"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore21"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore22"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore23"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Amérique"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore31"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore32"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore33"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Asie"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore41"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore42"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore43"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Europe"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore51"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore52"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/dialogBScore53"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+</TableLayout>

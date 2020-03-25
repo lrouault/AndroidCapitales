@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_BScoreCap"
+        android:title="Best Score Capitales"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_BScorePos"
+        android:title="Best Score Position"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_help"
+        android:title="Help"
+        app:showAsAction="never" />
+</menu>

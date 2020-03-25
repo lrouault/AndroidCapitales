@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 
 import com.lrt.capitales.model.capitales.GamePreference;
+import com.lrt.capitales.view.AlertDialogBScore;
+import com.lrt.capitales.view.AlertDialogHelp;
 import com.lrt.capitales.R;
 
 // TODO Changer le nom a arcadeGame
@@ -19,188 +23,188 @@ import com.lrt.capitales.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText mMainName;
-    private Button mMainCapitales;
-    private Button mMainPositions;
+    private EditText m_txtName;
+    private Button m_btnCapitales;
+    private Button m_btnPositions;
 
-    private CheckedTextView mMainAfrique;
-    private CheckedTextView mMainAmerique;
-    private CheckedTextView mMainAsie;
-    private CheckedTextView mMainEurope;
+    private CheckedTextView m_chkAfrique;
+    private CheckedTextView m_chkAmerique;
+    private CheckedTextView m_chkAsie;
+    private CheckedTextView m_chkEurope;
 
-    private CheckedTextView mMainDiff1;
-    private CheckedTextView mMainDiff2;
-    private CheckedTextView mMainDiff3;
+    private CheckedTextView m_chkDiff1;
+    private CheckedTextView m_chkDiff2;
+    private CheckedTextView m_chkDiff3;
 
-    private GamePreference mGamePreference;
+    private GamePreference m_gamePreference;
 
-    private SharedPreferences mPreferences;
+    private SharedPreferences m_sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPreferences = getPreferences(MODE_PRIVATE);
+        m_sharedPreferences = getPreferences(MODE_PRIVATE);
 
 
-        mMainName = findViewById(R.id.activity_main_name);
-        mMainCapitales = findViewById(R.id.activity_main_capitales);
-        mMainPositions = findViewById(R.id.activity_main_positions);
-        mMainAfrique = findViewById(R.id.activity_main_afrique);
-        mMainAmerique =  findViewById(R.id.activity_main_amerique);
-        mMainAsie = findViewById(R.id.activity_main_asie);
-        mMainEurope = findViewById(R.id.activity_main_europe);
-        mMainDiff1 = findViewById(R.id.activity_main_diff_1);
-        mMainDiff2 = findViewById(R.id.activity_main_diff_2);
-        mMainDiff3 = findViewById(R.id.activity_main_diff_3);
+        m_txtName = findViewById(R.id.activity_main_name);
+        m_btnCapitales = findViewById(R.id.activity_main_capitales);
+        m_btnPositions = findViewById(R.id.activity_main_positions);
+        m_chkAfrique = findViewById(R.id.activity_main_afrique);
+        m_chkAmerique =  findViewById(R.id.activity_main_amerique);
+        m_chkAsie = findViewById(R.id.activity_main_asie);
+        m_chkEurope = findViewById(R.id.activity_main_europe);
+        m_chkDiff1 = findViewById(R.id.activity_main_diff_1);
+        m_chkDiff2 = findViewById(R.id.activity_main_diff_2);
+        m_chkDiff3 = findViewById(R.id.activity_main_diff_3);
 
-        if(mPreferences.contains("firstname"))
-            mMainName.setText(mPreferences.getString("firstname",null));
+        if(m_sharedPreferences.contains("firstname"))
+            m_txtName.setText(m_sharedPreferences.getString("firstname",null));
 
-        mMainCapitales.setEnabled(mMainName.getText().toString().length() !=0);
-        mMainPositions.setEnabled(mMainName.getText().toString().length() !=0);
+        m_btnCapitales.setEnabled(m_txtName.getText().toString().length() !=0);
+        m_btnPositions.setEnabled(m_txtName.getText().toString().length() !=0);
 
-        mMainName.addTextChangedListener(new TextWatcher() {
+        m_txtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mMainCapitales.setEnabled(s.toString().length() !=0);
-                mMainPositions.setEnabled(s.toString().length() !=0);
+                m_btnCapitales.setEnabled(s.toString().length() !=0);
+                m_btnPositions.setEnabled(s.toString().length() !=0);
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
-        mMainAfrique.setOnClickListener(new View.OnClickListener() {
+        m_chkAfrique.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMainAfrique.isChecked()){
-                    mMainAfrique.setChecked(false);
+                if(m_chkAfrique.isChecked()){
+                    m_chkAfrique.setChecked(false);
                 }else{
-                    mMainAfrique.setChecked(true);
+                    m_chkAfrique.setChecked(true);
                 }
             }
         });
-        mMainAmerique.setOnClickListener(new View.OnClickListener() {
+        m_chkAmerique.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMainAmerique.isChecked()){
-                    mMainAmerique.setChecked(false);
+                if(m_chkAmerique.isChecked()){
+                    m_chkAmerique.setChecked(false);
                 }else{
-                    mMainAmerique.setChecked(true);
+                    m_chkAmerique.setChecked(true);
                 }
             }
         });
-        mMainAsie.setOnClickListener(new View.OnClickListener() {
+        m_chkAsie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMainAsie.isChecked()){
-                    mMainAsie.setChecked(false);
+                if(m_chkAsie.isChecked()){
+                    m_chkAsie.setChecked(false);
                 }else{
-                    mMainAsie.setChecked(true);
+                    m_chkAsie.setChecked(true);
                 }
             }
         });
-        mMainEurope.setOnClickListener(new View.OnClickListener() {
+        m_chkEurope.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMainEurope.isChecked()){
-                    mMainEurope.setChecked(false);
+                if(m_chkEurope.isChecked()){
+                    m_chkEurope.setChecked(false);
                 }else{
-                    mMainEurope.setChecked(true);
+                    m_chkEurope.setChecked(true);
                 }
             }
         });
 
-        mMainDiff1.setOnClickListener(new View.OnClickListener() {
+        m_chkDiff1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mMainDiff1.isChecked()) {
-                    mMainDiff1.setChecked(true);
-                    mMainDiff2.setChecked(false);
-                    mMainDiff3.setChecked(false);
+                if(!m_chkDiff1.isChecked()) {
+                    m_chkDiff1.setChecked(true);
+                    m_chkDiff2.setChecked(false);
+                    m_chkDiff3.setChecked(false);
                 }
             }
         });
-        mMainDiff2.setOnClickListener(new View.OnClickListener() {
+        m_chkDiff2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mMainDiff2.isChecked()) {
-                    mMainDiff2.setChecked(true);
-                    mMainDiff1.setChecked(false);
-                    mMainDiff3.setChecked(false);
+                if(!m_chkDiff2.isChecked()) {
+                    m_chkDiff2.setChecked(true);
+                    m_chkDiff1.setChecked(false);
+                    m_chkDiff3.setChecked(false);
                 }
             }
         });
-        mMainDiff3.setOnClickListener(new View.OnClickListener() {
+        m_chkDiff3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mMainDiff3.isChecked()) {
-                    mMainDiff3.setChecked(true);
-                    mMainDiff2.setChecked(false);
-                    mMainDiff1.setChecked(false);
+                if(!m_chkDiff3.isChecked()) {
+                    m_chkDiff3.setChecked(true);
+                    m_chkDiff2.setChecked(false);
+                    m_chkDiff1.setChecked(false);
                 }
             }
         });
 
 
-        mMainCapitales.setOnClickListener(new View.OnClickListener() {
+        m_btnCapitales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMainAfrique.isChecked()||mMainAmerique.isChecked()||
-                        mMainAsie.isChecked()||mMainEurope.isChecked()) {
+                if(m_chkAfrique.isChecked()|| m_chkAmerique.isChecked()||
+                        m_chkAsie.isChecked()|| m_chkEurope.isChecked()) {
 
-                    mPreferences.edit().putString("firstname",mMainName.getText().toString()).apply();
+                    m_sharedPreferences.edit().putString("firstname", m_txtName.getText().toString()).apply();
 
-                    mGamePreference = new GamePreference();
-                    mGamePreference.setAfrique(mMainAfrique.isChecked());
-                    mGamePreference.setAmerique(mMainAmerique.isChecked());
-                    mGamePreference.setAsie(mMainAsie.isChecked());
-                    mGamePreference.setEurope(mMainEurope.isChecked());
-                    if (mMainDiff1.isChecked()) {
-                        mGamePreference.setDifficulty(1);
-                    } else if (mMainDiff2.isChecked()) {
-                        mGamePreference.setDifficulty(2);
+                    m_gamePreference = new GamePreference();
+                    m_gamePreference.setAfrique(m_chkAfrique.isChecked());
+                    m_gamePreference.setAmerique(m_chkAmerique.isChecked());
+                    m_gamePreference.setAsie(m_chkAsie.isChecked());
+                    m_gamePreference.setEurope(m_chkEurope.isChecked());
+                    if (m_chkDiff1.isChecked()) {
+                        m_gamePreference.setDifficulty(1);
+                    } else if (m_chkDiff2.isChecked()) {
+                        m_gamePreference.setDifficulty(2);
                     } else {
-                        mGamePreference.setDifficulty(3);
+                        m_gamePreference.setDifficulty(3);
                     }
 
-                    Intent capitalesActivity = new Intent(MainActivity.this, CapitalesActivity.class);
-                    capitalesActivity.putExtra("GamePreference", mGamePreference);
-                    startActivity(capitalesActivity);
+                    Intent w_capitalesActivity = new Intent(MainActivity.this, CapitalesActivity.class);
+                    w_capitalesActivity.putExtra("GamePreference", m_gamePreference);
+                    startActivity(w_capitalesActivity);
                 }
             }
         });
 
 
-        mMainPositions.setOnClickListener(new View.OnClickListener() {
+        m_btnPositions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mMainAfrique.isChecked()||mMainAmerique.isChecked()||
-                        mMainAsie.isChecked()||mMainEurope.isChecked()) {
+                if(m_chkAfrique.isChecked()|| m_chkAmerique.isChecked()||
+                        m_chkAsie.isChecked()|| m_chkEurope.isChecked()) {
 
-                    mPreferences.edit().putString("firstname", mMainName.getText().toString()).apply();
+                    m_sharedPreferences.edit().putString("firstname", m_txtName.getText().toString()).apply();
 
-                    mGamePreference = new GamePreference();
-                    mGamePreference.setAfrique(mMainAfrique.isChecked());
-                    mGamePreference.setAmerique(mMainAmerique.isChecked());
-                    mGamePreference.setAsie(mMainAsie.isChecked());
-                    mGamePreference.setEurope(mMainEurope.isChecked());
-                    if (mMainDiff1.isChecked()) {
-                        mGamePreference.setDifficulty(1);
-                    } else if (mMainDiff2.isChecked()) {
-                        mGamePreference.setDifficulty(2);
+                    m_gamePreference = new GamePreference();
+                    m_gamePreference.setAfrique(m_chkAfrique.isChecked());
+                    m_gamePreference.setAmerique(m_chkAmerique.isChecked());
+                    m_gamePreference.setAsie(m_chkAsie.isChecked());
+                    m_gamePreference.setEurope(m_chkEurope.isChecked());
+                    if (m_chkDiff1.isChecked()) {
+                        m_gamePreference.setDifficulty(1);
+                    } else if (m_chkDiff2.isChecked()) {
+                        m_gamePreference.setDifficulty(2);
                     } else {
-                        mGamePreference.setDifficulty(3);
+                        m_gamePreference.setDifficulty(3);
                     }
 
-                    Intent mapActivity = new Intent(MainActivity.this, MapActivity.class);
-                    mapActivity.putExtra("GamePreference", mGamePreference);
-                    startActivity(mapActivity);
+                    Intent w_mapActivity = new Intent(MainActivity.this, MapActivity.class);
+                    w_mapActivity.putExtra("GamePreference", m_gamePreference);
+                    startActivity(w_mapActivity);
                 }
             }
         });
@@ -225,6 +229,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(w_labyrintheNiveaux);
             }
         });
+    }
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_BScoreCap){
+            AlertDialogBScore alertBScoreCap = new AlertDialogBScore(this,0);
+            alertBScoreCap.show();
+
+        }else if(item.getItemId() == R.id.menu_BScorePos){
+            AlertDialogBScore alertBScoreCap = new AlertDialogBScore(this,1);
+            alertBScoreCap.show();
+
+        }else if(item.getItemId() == R.id.menu_help){
+            AlertDialogHelp alertHelp = new AlertDialogHelp(this);
+            alertHelp.show();
+        }else{
+            return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
