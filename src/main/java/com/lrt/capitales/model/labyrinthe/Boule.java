@@ -59,11 +59,8 @@ public class Boule {
         // Si la boule sort du cadre, on traverse
         if(mX < 0) {
             mX += mWidth;
-            // Rebondir, c'est changer la direction de la balle
-            //mSpeedY = -mSpeedY / REBOND;
         } else if(mX > mWidth) {
             mX -= mWidth;
-            //mSpeedY = -mSpeedY / REBOND;
         }
     }
 
