@@ -75,6 +75,7 @@ public class LabyrintheActivity extends Activity {
     @Override
     protected void onPause() {
         Log.d(TAG, "appel de onPause");
+        super.onPause();
         super.onStop();
         mEngine.stop();
     }
@@ -92,6 +93,13 @@ public class LabyrintheActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 _setNextLabyrinthe();
+                                mEngine.reset();
+                                mEngine.resume();
+                            }
+                        })
+                        .setNeutralButton("Rejouer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 mEngine.reset();
                                 mEngine.resume();
                             }

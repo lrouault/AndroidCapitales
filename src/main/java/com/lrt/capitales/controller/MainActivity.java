@@ -14,13 +14,14 @@ import android.widget.EditText;
 import com.lrt.capitales.model.capitales.GamePreference;
 import com.lrt.capitales.R;
 
+// TODO Changer le nom a arcadeGame
+// TODO Changer le logo de l'appli
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText mMainName;
     private Button mMainCapitales;
     private Button mMainPositions;
-    private Button mMain2048;
-    private Button mMainLabyrinthe;
 
     private CheckedTextView mMainAfrique;
     private CheckedTextView mMainAmerique;
@@ -46,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         mMainName = findViewById(R.id.activity_main_name);
         mMainCapitales = findViewById(R.id.activity_main_capitales);
         mMainPositions = findViewById(R.id.activity_main_positions);
-        mMain2048 = findViewById(R.id.activity_main_2048);
-        mMainLabyrinthe = findViewById(R.id.activity_main_labyrinthe);
         mMainAfrique = findViewById(R.id.activity_main_afrique);
         mMainAmerique =  findViewById(R.id.activity_main_amerique);
         mMainAsie = findViewById(R.id.activity_main_asie);
@@ -60,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
             mMainName.setText(mPreferences.getString("firstname",null));
 
         mMainCapitales.setEnabled(mMainName.getText().toString().length() !=0);
-        mMainPositions.setEnabled(true);
-        mMain2048.setEnabled(true);
+        mMainPositions.setEnabled(mMainName.getText().toString().length() !=0);
 
         mMainName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mMainCapitales.setEnabled(s.toString().length() !=0);
+                mMainPositions.setEnabled(s.toString().length() !=0);
             }
 
             @Override
@@ -206,7 +205,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mMain2048.setOnClickListener(new View.OnClickListener() {
+        Button w_main2048 = findViewById(R.id.activity_main_2048);
+        w_main2048.setEnabled(true);
+        w_main2048.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent w_2048Activity = new Intent(MainActivity.this, C2048Activity.class);
@@ -215,7 +216,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mMainLabyrinthe.setOnClickListener(new View.OnClickListener() {
+        Button w_mainLabyrinthe = findViewById(R.id.activity_main_labyrinthe);
+        w_mainLabyrinthe.setEnabled(true);
+        w_mainLabyrinthe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent w_labyrinthe = new Intent(MainActivity.this, LabyrintheActivity.class);

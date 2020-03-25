@@ -28,7 +28,7 @@ public class Boule {
     private static final float REBOND_MUR = 10f;
 
     // Utilisé pour compenser les rebonds
-    private static final float ACCELERATION = 2.f;
+    private static final float ACCELERATION = 0.1f;
 
     // Le rectangle qui correspond à la position de départ de la boule
     private RectF mInitialRectangle = null;
@@ -43,7 +43,7 @@ public class Boule {
     }
 
     // Le rectangle de collision
-    private RectF mRectangle = null;
+    private RectF mRectangle;
 
     // Coordonnées en x
     private float mX;
@@ -81,19 +81,9 @@ public class Boule {
         }
     }
 
-    // Vitesse sur l'axe x
+    // Vitesse sur l'axe x, y
     private float mSpeedX = 0;
-    // Utilisé quand on rebondit sur les murs horizontaux
-    public void changeXSpeed() {
-        mSpeedX = -mSpeedX;
-    }
-
-    // Vitesse sur l'axe y
     private float mSpeedY = 0;
-    // Utilisé quand on rebondit sur les murs verticaux
-    public void changeYSpeed() {
-        mSpeedY = -mSpeedY;
-    }
 
     // Taille de l'écran en hauteur
     private int mHeight = -1;
@@ -193,19 +183,21 @@ public class Boule {
     public void accelerateur(Direction ai_dir) {
         switch (ai_dir) {
             case UP :
-                mSpeedX -= ACCELERATION;
-                break;
-            case DOWN:
-                mSpeedX += ACCELERATION;
-                break;
-            case LEFT :
                 mSpeedY -= ACCELERATION;
                 break;
-            case RIGHT:
+            case DOWN:
                 mSpeedY += ACCELERATION;
                 break;
+            case LEFT :
+                mSpeedX -= ACCELERATION;
+                break;
+            case RIGHT:
+                mSpeedX += ACCELERATION;
+                break;
         }
-        // Mise a jour les coordonnées du rectangle de collision
-        mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
+        if (mSpeedX < -MAX_SPEED) mSpeedX = -MAX_SPEED;
+        if (mSpeedX >  MAX_SPEED) mSpeedX =  MAX_SPEED;
+        if (mSpeedY < -MAX_SPEED) mSpeedY = -MAX_SPEED;
+        if (mSpeedY >  MAX_SPEED) mSpeedY =  MAX_SPEED;
     }
 }

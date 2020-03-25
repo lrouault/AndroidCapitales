@@ -1,7 +1,8 @@
 package com.lrt.capitales.model.labyrinthe;
 
 import android.content.res.AssetManager;
-import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.lrt.capitales.common.CommonEnum;
@@ -10,11 +11,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
+import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LabyrintheBank {
     private static final String TAG = "LabyrintheBank"; // pour les logs
@@ -22,10 +22,11 @@ public class LabyrintheBank {
     private float m_screenWidth = -1;
     private float m_screenHeight = -1;
 
-    ArrayList<ArrayList<Bloc>> m_listeDeLabyrinthe = new ArrayList<ArrayList<Bloc>>();
+    private ArrayList<ArrayList<Bloc>> m_listeDeLabyrinthe = new ArrayList<>();
 
 
     // Construit le labyrinthe
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void lectureFichier(AssetManager ai_asset) {
         Log.d(TAG, "appel de lectureFichier");
         InputStreamReader w_input = null;
@@ -42,7 +43,7 @@ public class LabyrintheBank {
         float w_rectHeight = m_screenHeight/(13+1);
 
         try {
-            w_input = new InputStreamReader(ai_asset.open("listeLabyrinthes.dat"), Charset.forName("UTF-8"));
+            w_input = new InputStreamReader(ai_asset.open("listeLabyrinthes.dat"), StandardCharsets.UTF_8);
             w_reader = new BufferedReader(w_input);
 
             // i -> colonnes (axeX)
@@ -56,14 +57,22 @@ public class LabyrintheBank {
                 char character = (char) c;
                 if(character == 'o')
                     w_bloc = new Bloc(CommonEnum.Type.TROU, i, j, w_rectWidth, w_rectHeight);
-                else if(character == 'd') {
+                else if(character == 'D') {
                     w_bloc = new Bloc(CommonEnum.Type.DEPART, i, j, w_rectWidth, w_rectHeight);
-                } else if(character == 'a')
+                } else if(character == 'A')
                     w_bloc = new Bloc(CommonEnum.Type.ARRIVEE, i, j, w_rectWidth, w_rectHeight);
                 else if(character == 'm')
                     w_bloc = new Bloc(CommonEnum.Type.MUR, i, j, w_rectWidth, w_rectHeight);
                 else if(character == 't')
                     w_bloc = new Bloc(CommonEnum.Type.TRAMPO, i, j, w_rectWidth, w_rectHeight);
+                else if(character == 'h')
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_H, i, j, w_rectWidth, w_rectHeight);
+                else if(character == 'b')
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_B, i, j, w_rectWidth, w_rectHeight);
+                else if(character == 'g')
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_G, i, j, w_rectWidth, w_rectHeight);
+                else if(character == 'd')
+                    w_bloc = new Bloc(CommonEnum.Type.SPEED_D, i, j, w_rectWidth, w_rectHeight);
                 else if(character == '/') {
                     // Ligne de commentaire
                     w_reader.readLine();
@@ -79,8 +88,8 @@ public class LabyrintheBank {
                         m_listeDeLabyrinthe.add(w_labyrinthe);
                     } else {
                         Log.d(TAG, "-- debut de lecture du labyrinte");
-                        w_labyrinthe = new ArrayList<Bloc>();
-                        i=-1; j=0;
+                        w_labyrinthe = new ArrayList<>();
+                        j=0;
                         w_maxColonne = 0; w_maxLigne = 0;
                     }
                     // Caractere de debut et de fin d'un labyinthe
@@ -97,7 +106,8 @@ public class LabyrintheBank {
                 }
                 // Si le bloc n'est pas nul, alors le caractère n'était pas un retour à la ligne
                 if(w_bloc != null) {
-                    // On l'ajoute alors au labyrinthe
+                    // On l'ajoute alors au labyrinthe (protection sur w_labyrinthe)
+                    assert w_labyrinthe != null;
                     w_labyrinthe.add(w_bloc);
                     if(i>w_maxColonne) {w_maxColonne=i;}
                     if(j>w_maxLigne) {w_maxLigne=j;}
