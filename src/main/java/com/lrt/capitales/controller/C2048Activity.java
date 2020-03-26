@@ -55,9 +55,11 @@ public class C2048Activity extends AppCompatActivity implements View.OnTouchList
             R.color.btn2048_7,R.color.btn2048_8,R.color.btn2048_9,
             R.color.btn2048_10,R.color.btn2048_11};
 
-    // Instanciation du jeu
-    // Listener sur le layout
-    // Button listener
+    /** onCreate()
+     * Instanciation du jeu
+     * Listener sur le layout
+     * Button listener
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

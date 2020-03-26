@@ -101,6 +101,7 @@ public class Boule {
 
     // Mettre à jour les coordonnées de la boule
     public RectF putXAndY(float pX, float pY) {
+        //Log.d(TAG, "putXAndY: speed "+(int) mSpeedX+", "+(int)mSpeedY);
         mSpeedX += pX / COMPENSATEUR;
         if(mSpeedX > MAX_SPEED)
             mSpeedX = MAX_SPEED;
@@ -203,23 +204,26 @@ public class Boule {
         Log.d(TAG, "setDifficulty: "+ai_diff);
         switch (ai_diff) {
             case FACILE :
-                COMPENSATEUR = 12;
-                MAX_SPEED = 15;
-                REBOND = 1.5f;
-                REBOND_MUR = 10;
+                COMPENSATEUR = 25; // vitesse capteur
+                MAX_SPEED    = 10;
+                REBOND       = 2.f; // attenuation
+                REBOND_MUR   = 10; // attenuation
                 ACCELERATION = 0.05f;
+                break;
             case NORMAL :
-                COMPENSATEUR = 8;
-                MAX_SPEED = 20;
-                REBOND = 1.25f;
-                REBOND_MUR = 5;
+                COMPENSATEUR = 10;
+                MAX_SPEED    = 20;
+                REBOND       = 1.25f;
+                REBOND_MUR   = 5;
                 ACCELERATION = 0.1f;
+                break;
             case EXPERT :
-                COMPENSATEUR = 4;
-                MAX_SPEED = 25;
-                REBOND = 0.75f;
-                REBOND_MUR = 2;
+                COMPENSATEUR = 2;
+                MAX_SPEED    = 25;
+                REBOND       = 0.75f;
+                REBOND_MUR   = 2;
                 ACCELERATION = 0.3f;
+                break;
         }
     }
 }

@@ -1,0 +1,27 @@
+// Labyrinthe d'exemple
+#
+mmmmmmmmmmmmmm
+D            A
+#
+#
+mmmmmmmmmmmmmmmmm
+m               m
+m D             m
+m               m
+mmmmmmmmmmmm    m
+m               m
+m A             m
+m               m
+mmmmmmmmmmmmmmmmm
+#
+#
+ttttttttttttttttt
+t               t
+t D             t
+t               t
+tttttttttttt    t
+t               t
+t A             t
+t               t
+ttttttttttttttttt
+#

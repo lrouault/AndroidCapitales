@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.LongDef;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -32,8 +31,9 @@ public class LabyrintheActivity extends Activity {
     private LabyrintheEngine mEngine = null;
     // La base de donnees de niveaux
     private LabyrintheBank m_bank = null;
-    private int m_indexLabyrinthe = -1;
-    private int m_difficulte = 1;
+    private int m_indexLabyrinthe ;
+    private int m_difficulte;
+    private int m_categorie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class LabyrintheActivity extends Activity {
 
         // Récupération des infos de niveau
         m_difficulte = (int)(getIntent().getSerializableExtra("Difficulte"));
+        m_categorie  = (int) getIntent().getSerializableExtra("Categorie")-1;
         m_indexLabyrinthe  = (int) getIntent().getSerializableExtra("Niveau")-1;
 
         // L'ecran ne passe pas en veille
@@ -159,13 +160,13 @@ public class LabyrintheActivity extends Activity {
     }
 
     private void _setNextLabyrinthe() {
-        if (m_indexLabyrinthe+1 < m_bank.getM_listeDeLabyrinthe().size()) {
+        if (m_indexLabyrinthe+1 < m_bank.getM_listeDeCategorieDeLabyrinthe().get(m_categorie).size()) {
             m_indexLabyrinthe++;
         } else {
             m_indexLabyrinthe =0;
         }
-        Log.d(TAG, "_setNextLabyrinthe: lecture "+m_indexLabyrinthe+" / "+m_bank.getM_listeDeLabyrinthe().size());
-        List<Bloc> mList = m_bank.getM_listeDeLabyrinthe().get(m_indexLabyrinthe);
+        Log.d(TAG, "_setNextLabyrinthe: categorie "+m_categorie+" lecture "+m_indexLabyrinthe+" / "+m_bank.getM_listeDeCategorieDeLabyrinthe().size());
+        List<Bloc> mList = m_bank.getM_listeDeCategorieDeLabyrinthe().get(m_categorie).get(m_indexLabyrinthe);
         mEngine.setBlocks(mList);
         mView.setBlocks(mList);
     }
