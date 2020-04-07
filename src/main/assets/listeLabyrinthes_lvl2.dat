@@ -1,16 +1,41 @@
-// Labyrinthe d'exemple
+// Labyrinthe d'exetple
 #
-mD        Am
-mmmmmmmmmmmm
+ttttttttttttttttt
+t               t
+t D           A t
+t               t
+ttttttttttttttttt
 #
 #
-mmmmmmmmmmmmmmmmm
-m               m
-m D             m
-m               m
-mmmmmmmmmmmm    m
-m               m
-m A             m
-m               m
-mmmmmmmmmmmmmmmmm
+ttttttttttttttttt
+t               t
+t D             t
+t               t
+tttttttttttt    t
+t               t
+t A             t
+t               t
+ttttttttttttttttt
+#
+#
+tttttttttttttttttt
+t     t   t      t
+t D t t t t tttt t
+t   t   t   t    t
+ttttttttttttt tttt
+t   t   t   t    t
+t A t t t t tttt t
+t     t   t      t
+tttttttttttttttttt
+#
+#
+tttttttttttttttttt
+tDt              t
+t t tttttttttttt t
+t t tA         t t
+t t tttttttttt t t
+t t            t t
+t tttttttttttttt t
+t                t
+tttttttttttttttttt
 #

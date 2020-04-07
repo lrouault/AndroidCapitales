@@ -1,41 +1,10 @@
 // Labyrinthe d'exemple
 #
 mmmmmmmmmmmmm
-   D  mm A
+      m
+   D  m A
+      m
 mmmmmmmmmmmmm
-#
-#
-mmmmmmmmmmmmmmmmm
-m               m
-m D             m
-m               m
-mmmmmmmmmmmm    m
-m               m
-m A             m
-m               m
-mmmmmmmmmmmmmmmmm
-#
-#
-ttttttttttttttttt
-t               t
-t D             t
-t               t
-tttttttttttt    t
-t               t
-t A             t
-t               t
-ttttttttttttttttt
-#
-#
-ttttttttttttttttt
-t   ddddddddbbbbt
-t D ddddddddbbbbt
-t   ddddddddbbbbt
-ttttttttttttbbbbt
-t   ggggggggggggt
-t A ggggggggggggt
-t   ggggggggggggt
-ttttttttttttttttt
 #
 #
 mmmmmmmmmmmmm   m
@@ -47,6 +16,28 @@ m               m
 m A             m
 m               m
 mmmmmmmmmmmmmm  m
+#
+#
+mmmmmmmmmmmmm   m
+m               m
+m D             m
+m               m
+mmmmmmmmmmmmmmmmm
+       m
+mmmmmm m  mmmmmmm
+mA     m        m
+mmmmmmmmmmmmmm  m
+#
+#
+ttttttttttttttttt
+t   ddddddddbbbbt
+t D ddddddddbbbbt
+t   ddddddddbbbbt
+ttttttttttttbbbbt
+t   ggggggggggggt
+t A ggggggggggggt
+t   ggggggggggggt
+ttttttttttttttttt
 #
 
 // Labyrinthe deux

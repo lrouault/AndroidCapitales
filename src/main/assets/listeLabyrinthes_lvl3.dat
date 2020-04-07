@@ -1,27 +1,41 @@
-// Labyrinthe d'exemple
+// Labyrinohe d'exeople
 #
-mmmmmmmmmmmmmm
-D            A
-#
-#
-mmmmmmmmmmmmmmmmm
-m               m
-m D             m
-m               m
-mmmmmmmmmmmm    m
-m               m
-m A             m
-m               m
-mmmmmmmmmmmmmmmmm
+ooooooooooooooooo
+o               o
+o D           A o
+o               o
+ooooooooooooooooo
 #
 #
-ttttttttttttttttt
-t               t
-t D             t
-t               t
-tttttttttttt    t
-t               t
-t A             t
-t               t
-ttttttttttttttttt
+ooooooooooooooooo
+o               o
+o D             o
+o               o
+oooooooooooo    o
+o               o
+o A             o
+o               o
+ooooooooooooooooo
+#
+#
+oooooooooooooooooo
+o     o   o      o
+o D o o o o oooo o
+o   o   o   o    o
+ooooooooooooo oooo
+o   o   o   o    o
+o A o o o o oooo o
+o     o   o      o
+oooooooooooooooooo
+#
+#
+oooooooooooooooooo
+oDo              o
+o o oooooooooooo o
+o o oA         o o
+o o oooooooooo o o
+o o            o o
+o oooooooooooooo o
+o                o
+oooooooooooooooooo
 #

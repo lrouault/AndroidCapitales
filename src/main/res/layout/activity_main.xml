@@ -156,34 +156,56 @@
         android:layout_marginTop="20dp"
         android:text="Which game do you want to play?" />
 
-    <Button
-        android:id="@+id/activity_main_capitales"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Capitales" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/activity_main_capitales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Capitales" />
+
+        <Button
+            android:id="@+id/activity_main_positions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="Positions" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/activity_main_2048"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2048" />
+
+        <Button
+            android:id="@+id/activity_main_labyrinthe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="LABYRINTHE" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/activity_main_positions"
+        android:id="@+id/activity_main_lab2048"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="Positions" />
-
-    <Button
-        android:id="@+id/activity_main_2048"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="2048" />
-
-    <Button
-        android:id="@+id/activity_main_labyrinthe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="LABYRINTHE" />
+        android:text="LAB-2048" />
 
 </LinearLayout>

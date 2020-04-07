@@ -1,8 +1,6 @@
 package com.lrt.capitales.view;
 
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,12 +14,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.lrt.capitales.R;
+import com.lrt.capitales.controller.Lab2048Activity;
 import com.lrt.capitales.controller.LabyrintheActivity;
 import com.lrt.capitales.model.labyrinthe.Bloc;
 import com.lrt.capitales.model.labyrinthe.Boule;
 
-public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
-    private static final String TAG = "LabyrintheView"; // pour les logs
+import java.util.List;
+
+public class Lab2048View extends SurfaceView implements SurfaceHolder.Callback {
+    private static final String TAG = "Lab2048View"; // pour les logs
 
     Boule mBoule;
 
@@ -31,7 +32,7 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
     final SurfaceHolder mSurfaceHolder;
     DrawingThread mThread;
-    private LabyrintheActivity mActivity; // Initialise dans le constructeur
+    private Lab2048Activity mActivity; // Initialise dans le constructeur
 
     private List<Bloc> mBlocks = null;
 
@@ -48,10 +49,10 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     Paint mPaint;
 
     //public LabyrintheView(LabyrintheActivity pView, Context pContext) {
-    public LabyrintheView(Context pContext) {
+    public Lab2048View(Context pContext) {
         super(pContext);
         Log.d(TAG, "appel du constructeur");
-        mActivity = (LabyrintheActivity) pContext;
+        mActivity = (Lab2048Activity) pContext;
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
         mThread = new DrawingThread();
@@ -109,6 +110,8 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
         // Dessiner la boule
         if(mBoule != null) {
+            mPaint.setColor(Color.BLACK);
+            pCanvas.drawText(((Integer)(mBoule.getM_value())).toString(),mBoule.getX(), mBoule.getY(), mPaint);
             mPaint.setColor(mBoule.getCouleur());
             pCanvas.drawCircle(mBoule.getX(), mBoule.getY(), Boule.RAYON, mPaint);
         }
@@ -150,7 +153,6 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     private void _setBitmap() {
-
         Matrix matrix = new Matrix();
 
         Bitmap w_bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.pushpin_blue);

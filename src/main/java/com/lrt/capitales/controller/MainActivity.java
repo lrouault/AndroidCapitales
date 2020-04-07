@@ -229,6 +229,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(w_labyrintheNiveaux);
             }
         });
+
+        Button w_mainLab2048 = findViewById(R.id.activity_main_lab2048);
+        w_mainLab2048.setEnabled(true);
+        w_mainLab2048.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent w_mainLab2048 = new Intent(MainActivity.this, Lab2048Activity.class);
+                startActivity(w_mainLab2048);
+            }
+        });
     }
 	
 	@Override

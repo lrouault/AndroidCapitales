@@ -32,6 +32,9 @@
         <activity android:name=".controller.LabyrintheActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".controller.Lab2048Activity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden"/>
     </application>
 
 </manifest>

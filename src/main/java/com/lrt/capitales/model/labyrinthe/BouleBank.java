@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.lrt.capitales.common.CommonEnum.Direction;
 
-public class Boule {
+public class BouleBank {
     private static final String TAG = "Boule"; // pour les logs
     private static final int FACILE = 1;
     private static final int NORMAL = 2;
@@ -32,11 +32,6 @@ public class Boule {
 
     // Utilisé pour compenser les rebonds
     private static float ACCELERATION = 0.1f;
-
-    // Value pour lab2048
-    private int m_value = 1;
-    public int getM_value() {return m_value;}
-    public void setM_value(int m_value) {this.m_value = m_value;}
 
     // Le rectangle qui correspond à la position de départ de la boule
     private RectF mInitialRectangle = null;
@@ -100,7 +95,7 @@ public class Boule {
         this.mWidth = pWidth;
     }
 
-    public Boule() {
+    public BouleBank() {
         mRectangle = new RectF();
     }
 
