@@ -26,8 +26,10 @@ import com.lrt.capitales.R;
 import com.lrt.capitales.common.CommonEnum;
 import com.lrt.capitales.model.Game2048;
 import com.lrt.capitales.model.molky.MolkyJoueurBank;
+import com.lrt.capitales.model.molky.MolkyJoueurData;
 import com.lrt.capitales.view.OnSwipeListener;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import static java.lang.Math.pow;
@@ -45,7 +47,7 @@ public class MolkyActivity extends AppCompatActivity  {
     private GestureDetector m_gestureDetector;
 
     // Plateau de jeu (0123 / 4567 / 891011 / 12131415 )
-    private TextView m_molkyBtn[] = new TextView[13];
+    private TextView[] m_molkyBtn = new TextView[13];
 
     // Layout et boutons actionnables
     private TextView m_txtScore;
@@ -262,6 +264,43 @@ public class MolkyActivity extends AppCompatActivity  {
 
     private void _majAffichage() {
         Log.e(TAG, "_majAffichage: " );
-        m_txtScore.setText(m_joueurBank.getText());
+        ArrayList<MolkyJoueurData> w_data = m_joueurBank.getData();
+
+        LinearLayout w_scoreLayout = (LinearLayout) findViewById(R.id.activity_molky_scoreLayout);
+        w_scoreLayout.removeAllViewsInLayout();
+
+        for (MolkyJoueurData w_joueur : w_data) {
+            View w_molky_score = getLayoutInflater()
+                    .inflate(R.layout.molky_score, w_scoreLayout, false);
+            // Nom
+            TextView w_txtName = w_molky_score.findViewById(R.id.molky_score_name);
+            w_txtName.setText(w_joueur.m_name);
+            if (w_joueur.m_myTurn) {
+                w_txtName.setTextColor(getResources().getColor(R.color.txt2048_OK));
+            }
+            // Score
+            TextView w_txtActualScore = w_molky_score.findViewById(R.id.molky_score_actualScore);
+            w_txtActualScore.setText(""+w_joueur.m_actualScore);
+            // Score
+            TextView w_txtPreviousScore = w_molky_score.findViewById(R.id.molky_score_previousScore);
+            w_txtPreviousScore.setText(""+w_joueur.m_previousScore);
+            // Position
+            TextView w_txtPosition = w_molky_score.findViewById(R.id.molky_score_position);
+            w_txtPosition.setText(""+w_joueur.m_position);
+
+            if (w_joueur.m_nbZero == 1) {
+                TextView w_txtFirstMiss = w_molky_score.findViewById(R.id.molky_score_firstMiss);
+                w_txtFirstMiss.setBackgroundResource(R.drawable.redcross);
+            } else if (w_joueur.m_nbZero == 2) {
+                TextView w_txtFirstMiss = w_molky_score.findViewById(R.id.molky_score_firstMiss);
+                w_txtFirstMiss.setBackgroundResource(R.drawable.redcross);
+                TextView w_txtSecondMiss = w_molky_score.findViewById(R.id.molky_score_secondMiss);
+                w_txtSecondMiss.setBackgroundResource(R.drawable.redcross);
+            }
+
+
+            w_scoreLayout.addView(w_molky_score);
+        }
+
     }
 }

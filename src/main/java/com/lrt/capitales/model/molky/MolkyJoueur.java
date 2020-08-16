@@ -8,7 +8,7 @@ public class MolkyJoueur {
     private static final String TAG = "MolkyJoueur";
 
     private String m_name;
-    ArrayList<Integer> m_score = new ArrayList<>();
+    private ArrayList<Integer> m_score = new ArrayList<>();
     private Integer m_nbZero = 0;
     private Integer m_maxNbZero = 3;
 
@@ -34,7 +34,7 @@ public class MolkyJoueur {
         m_isDownForOther = false;
         if (ai_lancer == 0) {
             m_nbZero += 1;
-            if (m_nbZero == m_maxNbZero) {
+            if (m_nbZero.equals(m_maxNbZero)) {
                 clearScore();
             }
         } else {
@@ -53,7 +53,7 @@ public class MolkyJoueur {
     public void otherScore(Integer ai_otherScore) {
         if (m_score.size() > 1) {
             int w_size = m_score.size()-1;
-            if (m_score.get(w_size) == ai_otherScore) {
+            if (m_score.get(w_size).equals(ai_otherScore)) {
                 m_score.remove(w_size);
             }
         }
@@ -94,4 +94,18 @@ public class MolkyJoueur {
     public Boolean getHasWon() {
         return m_hasWon;
     }
+
+    public String getName() {
+        return m_name;
+    }
+
+
+    public Integer getNbZero() {
+        return m_nbZero;
+    }
+
+
+
+
+
 }

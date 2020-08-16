@@ -3,6 +3,8 @@ package com.lrt.capitales.model.molky;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MolkyJoueurBank {
     private static final String TAG = "MolkyJoueurBank";
@@ -60,14 +62,49 @@ public class MolkyJoueurBank {
     }
 
     public String getText() {
-        String w_out = "";
+        StringBuilder w_out = new StringBuilder();
         if (!m_listJoueurs.isEmpty()) {
             for (int w_joueur = 0; w_joueur < m_listJoueurs.size(); w_joueur++) {
-                if (w_joueur == m_nextPlayer) {w_out += "=>";}
-                w_out += m_listJoueurs.get(w_joueur).getText() +"\n";
+                if (w_joueur == m_nextPlayer) {
+                    w_out.append("=>");
+                }
+                w_out.append(m_listJoueurs.get(w_joueur).getText()).append("\n");
             }
         }
-        return w_out;
+        return w_out.toString();
+    }
+
+    public ArrayList<MolkyJoueurData> getData() {
+        ArrayList<MolkyJoueurData> w_data;
+        w_data = new ArrayList<>();
+
+        if (!m_listJoueurs.isEmpty()) {
+            for (int w_joueur = 0; w_joueur < m_listJoueurs.size(); w_joueur++) {
+                MolkyJoueurData w_tmp = new MolkyJoueurData(
+                        m_listJoueurs.get(w_joueur).getName(),
+                        1,
+                        m_listJoueurs.get(w_joueur).getLastScore(),
+                        m_listJoueurs.get(w_joueur).getPreviousScore(),
+                        m_listJoueurs.get(w_joueur).getNbZero(),
+                        w_joueur == m_nextPlayer);
+                w_data.add(w_tmp);
+            }
+        }
+        _setPosition(w_data);
+        return w_data;
+    }
+
+    private void _setPosition(ArrayList<MolkyJoueurData> ai_list) {
+        ArrayList<Integer> w_position = new ArrayList<>();
+        for (MolkyJoueurData w_joueur : ai_list) {
+            if (!w_position.contains(w_joueur.m_actualScore)) {
+                w_position.add(w_joueur.m_actualScore);
+            }
+        }
+        Collections.sort(w_position);
+        for (MolkyJoueurData w_joueur : ai_list) {
+            w_joueur.m_position = w_position.size() - w_position.indexOf(w_joueur.m_actualScore);
+        }
     }
 
     private void _nextPlayer() {
