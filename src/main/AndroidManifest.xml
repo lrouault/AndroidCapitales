@@ -35,6 +35,9 @@
         <activity android:name=".controller.Lab2048Activity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".controller.MolkyActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
     </application>
 
 </manifest>

@@ -239,6 +239,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(w_mainLab2048);
             }
         });
+
+        Button w_mainMolky = findViewById(R.id.activity_main_molky);
+        w_mainMolky.setEnabled(true);
+        w_mainMolky.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent w_molkyActivity = new Intent(MainActivity.this, MolkyActivity.class);
+                startActivity(w_molkyActivity);
+            }
+        });
     }
 	
 	@Override
